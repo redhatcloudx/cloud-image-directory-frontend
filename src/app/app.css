@@ -1,0 +1,71 @@
+html, body, #root {
+  height: 100%;
+}
+
+img {
+  max-height: 50%;
+}
+
+a:link, a:visited,a:hover, a:active {
+  color: white;
+  text-decoration: none;
+}
+
+.pf-c-nav, .pf-c-nav__subnav {
+  --pf-c-nav__link--m-current--after--BorderColor: red;
+}
+
+.pf-c-jump-links {
+  --pf-c-jump-links__list--before--BorderTopWidth: 0;
+  --pf-c-jump-links__item--m-current__link--before--BorderColor: red;
+  --pf-c-jump-links__link--hover__link-text--Color: #d2d2d2;
+  --pf-c-jump-links__link-text--Color: white;
+}
+
+.pf-c-content {
+  --pf-c-content--small--Color: red; /* changes all <small> color to red */
+  --pf-c-content--blockquote--BorderLeftColor: purple; /* changes all <blockquote> left border color to purple */
+  --pf-c-content--hr--BackgroundColor: lemonchiffon; /* changes a <hr> color to lemonchiffon */
+}
+
+.pf-c-clipboard-copy {
+  --pf-c-clipboard-copy--m-inline--BackgroundColor: transparent;
+}
+
+.pf-c-title	{
+  --pf-c-title--m-4xl--FontSize: 3rem;
+  --pf-c-title--m-3xl--FontWeight: 600;
+}
+
+.pf-c-about-modal-box	{
+  --pf-c-about-modal-box__close--c-button--BackgroundColor: black;
+  --pf-c-about-modal-box__brand-image--Height: 10rem;
+}
+
+.pf-c-code-block {
+  --pf-c-code-block--BackgroundColor: black;
+}
+
+.pf-c-expandable-section {
+  --pf-c-expandable-section__toggle--Color: white;
+  --pf-c-expandable-section__toggle--m-expanded--Color: white;
+  --pf-c-expandable-section__toggle--active--Color: white;
+  --pf-c-expandable-section__toggle--focus--Color: white;
+  --pf-c-expandable-section__toggle--hover--Color: white;
+}
+
+.pf-c-button {
+  --pf-c-button--FontWeight: 600;
+  --pf-c-button--FontSize: 1.1rem;
+}
+
+.pf-c-card {
+  background-color: #232f3e,
+}
+
+.pf-c-card.pf-m-selectable:hover {
+  transform: scale(1.01);
+  background-color: #3e2323;
+  transition: transform 300ms ease-in-out, background-color 300ms ease-in-out;
+}
+
