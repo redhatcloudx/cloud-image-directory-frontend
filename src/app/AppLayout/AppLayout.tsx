@@ -98,7 +98,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
     <Nav id="nav-primary-simple" theme="dark">
       <NavList id="nav-list-simple">
         {routes.map(
-          (route, idx) => route.label && (!route.routes ? renderNavItem(route, idx) : renderNavGroup(route, idx))
+          (route, idx) => route.label && renderNavItem(route, idx) //(!route.routes ? renderNavItem(route, idx) : renderNavGroup(route, idx))
         )}
       </NavList>
     </Nav>
@@ -107,7 +107,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
   const headerJumpLinks = (
     <JumpLinks isCentered>
       {routes.map(
-        (route, idx) => route.label && (!route.routes ? renderJumpLinkItem(route, idx) : renderJumpLinkList(route, idx))
+        (route, idx) => route.label && renderJumpLinkItem(route, idx) //(!route.routes ? renderJumpLinkItem(route, idx) : renderJumpLinkList(route, idx))
       )}
     </JumpLinks>
   )

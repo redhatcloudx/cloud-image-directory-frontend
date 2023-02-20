@@ -28,6 +28,6 @@ jobs:
     - name: Install Packages
       run: npm ci
     - name: Perform Tests
-      run: npm test
+      run: npm run test:coverage
     - name: Perform Audit
       run: npm audit --production

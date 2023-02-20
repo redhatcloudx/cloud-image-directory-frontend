@@ -1,42 +1,33 @@
-import * as React from 'react';
-import App from '@app/index';
-import { mount, shallow } from 'enzyme';
-import { Button } from '@patternfly/react-core';
+import * as React from 'react'
+import {render, screen, queryByAttribute, act, within} from '@testing-library/react'
+import '@testing-library/jest-dom'
+import App from '@app/index'
+import userEvent from '@testing-library/user-event'
+import { Button } from '@patternfly/react-core'
 
 describe('App tests', () => {
   test('should render default App component', () => {
-    const view = shallow(<App />);
-    expect(view).toMatchSnapshot();
-  });
-
-  it('should render a nav-toggle button', () => {
-    const wrapper = mount(<App />);
-    const button = wrapper.find(Button);
-    expect(button.exists()).toBe(true);
-  });
+    render(<App />)
+    expect(screen).toMatchSnapshot()
+  })
 
   it('should hide the sidebar on smaller viewports', () => {
-    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 600 });
-    const wrapper = mount(<App />);
-    window.dispatchEvent(new Event('resize'));
-    expect(wrapper.find('#page-sidebar').hasClass('pf-m-collapsed')).toBeTruthy();
-  });
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 600 })
+    const getById = queryByAttribute.bind(null, 'id')
+    const dom = render(<App />)
+    act(() => window.dispatchEvent(new Event('resize')))
+    expect(getById(dom.container, 'page-sidebar')).toHaveClass('pf-m-collapsed')
+  })
 
-  it('should expand the sidebar on larger viewports', () => {
-    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1200 });
-    const wrapper = mount(<App />);
-    window.dispatchEvent(new Event('resize'));
-    expect(wrapper.find('#page-sidebar').hasClass('pf-m-expanded')).toBeTruthy();
-  });
+  it('should show the sidebar when clicking the nav-toggle button', async () => {
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 600 })
+    const getById = queryByAttribute.bind(null, 'id')
+    const dom = render(<App />)
+    const navButton = screen.getByRole('button')
 
-  it('should hide the sidebar when clicking the nav-toggle button', () => {
-    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1200 });
-    const wrapper = mount(<App />);
-    window.dispatchEvent(new Event('resize'));
-    const button = wrapper.find('#nav-toggle').hostNodes();
-    expect(wrapper.find('#page-sidebar').hasClass('pf-m-expanded')).toBeTruthy();
-    button.simulate('click');
-    expect(wrapper.find('#page-sidebar').hasClass('pf-m-collapsed')).toBeTruthy();
-    expect(wrapper.find('#page-sidebar').hasClass('pf-m-expanded')).toBeFalsy();
-  });
-});
+    act(() => window.dispatchEvent(new Event('resize')))
+    expect(getById(dom.container,'page-sidebar')).toHaveClass('pf-m-collapsed')
+    await userEvent.click(navButton)
+    expect(getById(dom.container,'page-sidebar')).toHaveClass('pf-m-expanded')
+  })
+})

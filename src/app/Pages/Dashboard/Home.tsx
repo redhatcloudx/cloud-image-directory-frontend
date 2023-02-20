@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { PageSectionVariants, PageSection, Title, Grid, Flex, FlexItem, Bullseye, TitleSizes, Gallery, GalleryItem,   TextContent,
-  Text,
-  TextVariants, } from '@patternfly/react-core';
+import {
+  PageSectionVariants, PageSection, Title, Flex, FlexItem, Bullseye, TitleSizes, Text, TextVariants,
+} from '@patternfly/react-core';
 import ProviderCard from '@app/components/ProviderCard'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
 
@@ -44,9 +44,9 @@ const Home: React.FunctionComponent<{title: string}> = ({title}) => {
     <PageSection variant={PageSectionVariants.darker}>
       <Bullseye>
         <Flex>
-          {providerInfos.map(({name, image, text, url}) => (
-            <FlexItem>
-              <ProviderCard name={name} image={image} text={text} url={url} />
+          {providerInfos.map(({name, text, url}, index) => (
+            <FlexItem key={`provider_card_${index}`}>
+              <ProviderCard name={name} text={text} url={url}/>
             </FlexItem>
           ))}
         </Flex>

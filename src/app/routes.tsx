@@ -63,9 +63,9 @@ const routes: AppRouteConfig[] = [
 const AppRoutes = (): React.ReactElement => (
   <LastLocationProvider>
     <Routes>
-      {routes.map(route => {
+      {routes.map( (route, index) => {
         return (
-          <Route path={route.path} element={route.component}/>
+          <Route path={route.path} element={route.component} key={`app_route_${index}`}/>
         )
       })}
       <Route path='*' element={<NotFound title='404 Page Not Found'/>} />

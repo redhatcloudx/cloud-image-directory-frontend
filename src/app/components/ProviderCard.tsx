@@ -14,7 +14,6 @@ import redhat_logo from '@app/bgimages/redhat_clear.png'
 
 
 interface IProviderCardProps {
-  image: any
   name: string
   text: string
   url: string

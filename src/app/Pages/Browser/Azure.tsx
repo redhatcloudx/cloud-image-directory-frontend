@@ -59,7 +59,6 @@ const columns = [
       return (
         <AzureImageModal
           urn={imageId}
-          majorRelease={version}
           architecture={arch}
           version={version} />
       )
