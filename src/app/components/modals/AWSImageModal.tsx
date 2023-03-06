@@ -102,7 +102,7 @@ export default class AWSImageModal extends React.Component<IAWSImageModalProps, 
         <AboutModal
           isOpen={isModalOpen}
           onClose={this.toggleModal}
-          trademark={`Copyright © Red Hat ${new Date().getFullYear()}.`}
+          trademark={`Cloud Experience ${new Date().getFullYear()}.`}
           brandImageSrc={brandImg}
           brandImageAlt="Red Hat"
           noAboutModalBoxContentContainer={true}

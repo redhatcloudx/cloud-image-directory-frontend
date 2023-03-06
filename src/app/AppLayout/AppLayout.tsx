@@ -28,7 +28,7 @@ import {
   IAppRoute,
   IAppRouteGroup
 } from '@app/routes'
-import logo from '@app/bgimages/red-hat-hybrid-cloud.svg'
+import logo from '@app/bgimages/cloud_download.svg'
 import BarsIcon from '@patternfly/react-icons/dist/js/icons/bars-icon'
 
 interface IAppLayout {
@@ -40,7 +40,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
   const [isMobileView, setIsMobileView] = React.useState(true)
   const [isNavOpenMobile, setIsNavOpenMobile] = React.useState(false)
   const pageId = 'primary-app-container'
-  const pageTitle = 'Red Hat Hybrid Cloud Portal'
+  const pageTitle = 'Cloud Image Directory'
   const location = useLocation()
   const navigate = useNavigate()
 
