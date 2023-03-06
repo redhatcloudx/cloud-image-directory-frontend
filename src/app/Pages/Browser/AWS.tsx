@@ -96,7 +96,7 @@ const AWS: React.FunctionComponent<{title: string}> = ({title}) => {
             tableColumns={columns}/>
       <PageSection >
         <Bullseye>
-          <Text component={TextVariants.small}>{`Copyright © Red Hat ${new Date().getFullYear()}.`}</Text>
+          <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>
         </Bullseye>
       </PageSection>
     </>

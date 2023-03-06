@@ -35,10 +35,10 @@ const Home: React.FunctionComponent<{title: string}> = ({title}) => {
     <div>
     <PageSection variant={PageSectionVariants.darker}>
       <Bullseye>
-      <Title headingLevel="h2" size={TitleSizes['3xl']}>Red Hat Enterprise Linux 9</Title>
+      <Title headingLevel="h1" size={TitleSizes['4xl']}>Cloud Image Directory</Title>
       </Bullseye>
       <Bullseye>
-      <Title headingLevel="h1" size={TitleSizes['4xl']}>Linux crafted for the Cloud</Title>
+      <Title headingLevel="h2" size={TitleSizes['1xl']}>Providing Easy Access to Linux Cloud Images Since 2023</Title>
       </Bullseye>
     </PageSection>
     <PageSection variant={PageSectionVariants.darker}>
@@ -55,7 +55,7 @@ const Home: React.FunctionComponent<{title: string}> = ({title}) => {
     <PageSection variant={PageSectionVariants.darker}></PageSection>
     <PageSection >
       <Bullseye>
-        <Text component={TextVariants.small}>{`Copyright © Red Hat ${new Date().getFullYear()}.`}</Text>
+        <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>
       </Bullseye>
     </PageSection>
     </div>

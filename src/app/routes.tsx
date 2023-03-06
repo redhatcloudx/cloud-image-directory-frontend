@@ -35,25 +35,25 @@ export type AppRouteConfig = IAppRoute
 
 const routes: AppRouteConfig[] = [
   {
-    component: <Home title='Cloud Image Locator | Home'/>,
+    component: <Home title='Cloud Image Directory | Home'/>,
     exact: true,
-    label: 'Cloud Image Locator',
+    label: 'Cloud Image Directory',
     path: '/'
   },
   {
-    component: <AWSImageBrowser title='Cloud Image Locator | AWS Image Browser'/>,
+    component: <AWSImageBrowser title='Cloud Image Directory | AWS Image Browser'/>,
     exact: true,
     label: 'AWS',
     path: '/browser/AWS',
   },
   {
-    component: <GCPImageBrowser title='Cloud Image Locator | GCP Image Browser'/>,
+    component: <GCPImageBrowser title='Cloud Image Directory | GCP Image Browser'/>,
     exact: true,
     label: 'GCP',
     path: '/browser/GCP',
   },
   {
-    component: <AzureImageBrowser title='Cloud Image Locator | Azure Image Browser'/>,
+    component: <AzureImageBrowser title='Cloud Image Directory | Azure Image Browser'/>,
     exact: true,
     label: 'Azure',
     path: '/browser/Azure',
