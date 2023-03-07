@@ -36,7 +36,7 @@ jobs:
         path: "dist/"
 
   upload:
-    name: "🔎 Parse image data"
+    name: "Upload static web-app"
     runs-on: ubuntu-latest
     needs: [build]
     steps:
@@ -47,7 +47,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           # TODO: Add role to infrastructure and replace ID
-          role-to-assume: arn:aws:iam::426579533370:role/github_actions_release_frontend
+          role-to-assume: arn:aws:iam::426579533370:role/github_actions_cloud_image_directory_frontend
           role-duration-seconds: 1800
           aws-region: us-east-2
 
