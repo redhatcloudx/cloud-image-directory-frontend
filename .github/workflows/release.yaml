@@ -1,7 +1,12 @@
-name: Github Page Test
+name: Github Page Deployment
 
 on:
   workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,7 +34,7 @@ jobs:
     - name: Production Build
       run: npm run build
 
-    - name: Store image data in artifact
+    - name: Store static web-app data in artifact
       uses: actions/upload-artifact@v3
       with:
         name: distribution
@@ -46,7 +51,6 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
-          # TODO: Add role to infrastructure and replace ID
           role-to-assume: arn:aws:iam::426579533370:role/github_actions_cloud_image_directory_frontend
           role-duration-seconds: 1800
           aws-region: us-east-2
@@ -58,4 +62,4 @@ jobs:
         run: |
           pipx install s3cmd
           s3cmd sync --acl-public --delete-removed --guess-mime-type --no-mime-magic \
-            $(pwd)/dist/ s3://cloudx-json-bucket/web-app/
+            $(pwd)/distribution/ s3://cloudx-json-bucket/web-app/
