@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, PageSection, PageSectionVariants, Bullseye, Text, TextVariants, Title, TitleSizes, ClipboardCopy } from '@patternfly/react-core'
-import ImageDataTable from '@app/components/queryTables/ImageDataTable'
+import ImageDataTable from '@app/components/imageTable/ImageDataTable'
 import aws_logo from '@app/bgimages/aws_clear.png'
 import AWSImageModal from '@app/components/modals/AWSImageModal'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
@@ -44,36 +44,36 @@ const columns = [
     Header: 'Date',
     accessor: 'date'
   },
-  {
-    Header: 'Action',
-    accessor: 'selflink',
-    Cell: ({
-      cell: {
-        value
-      },
-      row: {
-        values: {
-          name,
-          region,
-          arch,
-          imageId,
-          version,
-          date
-        }
-      }
-    }) => {
-      return (
-        <AWSImageModal
-          architecture={arch}
-          date={date}
-          imageID={imageId}
-          majorRelease={version}
-          name={name}
-          region={region}
-          url={value}/>
-      )
-    }
-  },
+  // {
+  //   Header: 'Action',
+  //   accessor: 'selflink',
+  //   Cell: ({
+  //     cell: {
+  //       value
+  //     },
+  //     row: {
+  //       values: {
+  //         name,
+  //         region,
+  //         arch,
+  //         imageId,
+  //         version,
+  //         date
+  //       }
+  //     }
+  //   }) => {
+  //     return (
+  //       <AWSImageModal
+  //         architecture={arch}
+  //         date={date}
+  //         imageID={imageId}
+  //         majorRelease={version}
+  //         name={name}
+  //         region={region}
+  //         url={value}/>
+  //     )
+  //   }
+  // },
 ]
 
 const AWS: React.FunctionComponent<{title: string}> = ({title}) => {

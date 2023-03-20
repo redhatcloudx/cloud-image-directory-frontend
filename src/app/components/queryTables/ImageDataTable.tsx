@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import 'regenerator-runtime/runtime'
 import styles from '@app/components/queryTables/ImageDataTable.module.scss'
-import axios from 'axios'
+// import axios from 'axios'
 import {
   useTable,
   useFilters,
@@ -15,6 +15,9 @@ import {
   QueryClientProvider
 } from 'react-query'
 import { API_ROOT } from '@app/utils/environments'
+
+import { TableComposable, Thead, Tr, Th, Tbody, Td, ExpandableRowContent } from '@patternfly/react-table';
+import { Checkbox } from '@patternfly/react-core';
 
 interface columnDetails {
   Header: string,
@@ -163,20 +166,35 @@ const TableInstance = ({ tableData, tableColumns }) => {
 const TableQuery = ({endpoint,
   queryId,
   tableColumns}) => {
-  const queryClient = useQueryClient()
+  //const queryClient = useQueryClient()
 
   const [tableData, setTableData] = useState(null)
 
 
-  const {
-    data: apiResponse, isLoading
-  } = useQuery(queryId, () => axios.get(`http://54.242.191.234:80/api/${endpoint}`), { enabled: !tableData });
+  // const {
+  //   data: apiResponse, isLoading
+  // } = useQuery(queryId, () => axios.get(`http://54.242.191.234:80/api/${endpoint}`), { enabled: !tableData });
+
+  // useEffect(() => {
+  //   setTableData(apiResponse?.data);
+  // }, [apiResponse])
 
   useEffect(() => {
-    setTableData(apiResponse?.data);
-  }, [apiResponse])
+    import('./test-idx.json').then(data => {
+      setTableData(data["index"])
+    })
+    // console.log("FIRED!")
+    // fetch("./test-idx.json")
+    //   .then(response => {
+    //     const data = response.json()
+    //     setTableData(data["index"])
+    //   })
+    //   .then(data => {
+    //     console.log(data)
+    //   })
+  }, [])
 
-  if (isLoading || !tableData) {
+  if (!tableData) {
     return <div>Fetching Image Data...</div>
   }
 
