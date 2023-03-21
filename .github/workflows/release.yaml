@@ -61,5 +61,5 @@ jobs:
       - name: Upload to S3
         run: |
           pipx install s3cmd
-          s3cmd sync --acl-public --delete-removed --guess-mime-type --no-mime-magic \
-            $(pwd)/distribution/ s3://cloudx-json-bucket/web-app/
+          s3cmd sync --acl-public --guess-mime-type --no-mime-magic \
+            $(pwd)/distribution/ s3://cloudx-json-bucket/
