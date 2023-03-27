@@ -91,8 +91,7 @@ const AWS: React.FunctionComponent<{title: string}> = ({title}) => {
         </Bullseye>
       </PageSection>
       <ImageDataTable
-            endpoint={'aws'}
-            queryId={'awsImageDataQuery'}
+            provider={'aws'}
             tableColumns={columns}/>
       <PageSection >
         <Bullseye>
