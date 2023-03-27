@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { PageSection, PageSectionVariants, Bullseye, Text, TextVariants, Title, TitleSizes, ClipboardCopy } from '@patternfly/react-core'
-import ImageDataTable from '@app/components/queryTables/ImageDataTable'
+import ImageDataTable from '@app/components/imageTable/ImageDataTable'
 import GCPImageModal from '@app/components/modals/GCPImageModal'
 import google_clear from '@app/bgimages/google_clear.png'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
