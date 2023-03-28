@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import 'regenerator-runtime/runtime'
 import { TableComposable, Thead, Tr, Th, Tbody, Td, ExpandableRowContent } from '@patternfly/react-table'
+import { Pagination, PaginationVariant } from '@patternfly/react-core'
 import DetailsView from './DetailsView'
 
 interface columnDetails {
@@ -117,20 +118,7 @@ const TableInstance = ({ tableData, tableColumns }) => {
   )
 }
 
-const TableQuery = ({ tableColumns }) => {
-
-  const [tableData, setTableData] = useState(null)
-
-  useEffect(() => {
-    fetch("https://poc.imagedirectory.cloud/images/v1/idx/list/sort-by-date/1", {
-      method: 'get',
-    })
-    .then(res => res.json())
-    .then(data => {
-      setTableData(data)
-    })
-  }, [])
-
+const TableQuery = ({ tableData, tableColumns }) => {
   if (!tableData) {
     return <div>Fetching Image Data...</div>
   }
@@ -142,14 +130,65 @@ const TableQuery = ({ tableColumns }) => {
   )
 }
 
-export default class ImageDataTable extends React.Component<IImageDataTableProps> {
-  render () {
-    const {
-      tableColumns,
-    } = this.props
+const ImageDataTable = ({tableColumns }) => {
+  const [page, setPage] = React.useState(1)
+  const [tableData, setTableData] = useState(null)
 
-    return (
-      <TableQuery tableColumns={tableColumns} />
-    )
+  useEffect(() => {
+    fetch(`https://poc.imagedirectory.cloud/images/v1/idx/list/sort-by-date/${page}`, {
+      method: 'get',
+    })
+    .then(res => res.json())
+    .then(data => {
+      setTableData(data)
+    })
+  }, [])
+
+  const loadData = (newPage) => {
+    fetch(`https://poc.imagedirectory.cloud/images/v1/idx/list/sort-by-date/${newPage}`, {
+      method: 'get',
+    })
+    .then(res => res.json())
+    .then(data => {
+      setTableData(data)
+    })
   }
+
+  const onSetPage = (_event: React.MouseEvent | React.KeyboardEvent | MouseEvent, newPage: number) => {
+    setPage(newPage)
+    loadData(newPage)
+  }
+
+  const onPerPageSelect = (
+    _event: React.MouseEvent | React.KeyboardEvent | MouseEvent,
+    newPage: number
+  ) => {
+    setPage(newPage)
+    loadData(newPage)
+  }
+  return (
+    <div>
+      <Pagination
+        perPageComponent="button"
+        itemCount={368}
+        widgetId="top-pagination"
+        page={page}
+        variant={PaginationVariant.top}
+        onSetPage={onSetPage}
+        onPerPageSelect={onPerPageSelect}
+      />
+      <TableQuery tableColumns={tableColumns} tableData={tableData}/>
+      <Pagination
+        perPageComponent="button"
+        itemCount={368}
+        widgetId="bottom-pagination"
+        page={page}
+        variant={PaginationVariant.bottom}
+        onSetPage={onSetPage}
+        onPerPageSelect={onPerPageSelect}
+      />
+    </div>
+  )
 }
+
+export default ImageDataTable
