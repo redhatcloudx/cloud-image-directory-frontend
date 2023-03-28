@@ -62,7 +62,7 @@
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^2.0.0",
-    "svg-url-loader": "^7.1.1",
+    "svg-url-loader": "^8.0.0",
     "terser-webpack-plugin": "^5.3.6",
     "ts-jest": "^29.0.5",
     "ts-loader": "^9.2.3",
