@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, PageSection, PageSectionVariants, Bullseye, Text, TextVariants, Title, TitleSizes, ClipboardCopy } from '@patternfly/react-core'
-import ImageDataTable from '@app/components/imageTable/ImageDataTable'
+import ImageDataTable from '@app/components/ImageDataTable'
 import AzureImageModal from '@app/components/modals/AzureImageModal'
 import azure_logo from '@app/bgimages/azure_clear.png'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
@@ -11,59 +11,13 @@ const columns = [
     accessor: 'name'
   },
   {
-    Header: 'Version',
-    accessor: 'version'
-  },
-  {
     Header: 'Architecture',
     accessor: 'arch'
-  },
-  {
-    Header: 'Virtualization',
-    accessor: 'virt'
-  },
-  {
-    Header: 'Urn',
-    accessor: 'imageId',
-    Cell: ({ cell: { value } }) => {
-      return (
-        <ClipboardCopy
-          hoverTip="Copy"
-          clickTip="Copied"
-          variant="inline-compact">
-            {value}
-        </ClipboardCopy>
-      )
-    }
   },
   {
     Header: 'Date',
     accessor: 'date'
   },
-  {
-    Header: 'Action',
-    Cell: ({
-      cell: {
-        value
-      },
-      row: {
-        values: {
-          name,
-          arch,
-          imageId,
-          version,
-          date
-        }
-      }
-    }) => {
-      return (
-        <AzureImageModal
-          urn={imageId}
-          architecture={arch}
-          version={version} />
-      )
-    }
-  }
 ]
 
 const Azure: React.FunctionComponent<{title: string}> = ({title}) => {
@@ -80,10 +34,7 @@ const Azure: React.FunctionComponent<{title: string}> = ({title}) => {
           <Title headingLevel="h1"  size={TitleSizes['4xl']}>Azure Image Browser</Title>
         </Bullseye>
       </PageSection>
-        <ImageDataTable
-            endpoint={'azure'}
-            queryId={'azureImageDataQuery'}
-            tableColumns={columns}/>
+        <ImageDataTable tableColumns={columns}/>
       <PageSection >
         <Bullseye>
           <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>
