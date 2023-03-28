@@ -123,7 +123,6 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
     // Conditionally configure the content of the image details view
     switch (details['provider']) {
       case 'aws':
-        //this.handleMachinTypeInputChange('e2-medium')
         cliCommand = `aws ec2 run-instances \\
         --image-id ${details['imageId']} \\
         --count 1 \\
@@ -145,7 +144,6 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
         break
 
       case 'azure':
-        //this.handleMachinTypeInputChange('vm-1')
         const urnParts = details['imageId'].split(':')
         const offer = urnParts[1]
         const sku = urnParts[2]
