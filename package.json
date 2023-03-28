@@ -58,7 +58,7 @@
     "react-axe": "^3.5.4",
     "react-router-dom": "^6.6.2",
     "regenerator-runtime": "^0.13.11",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.0.0",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^2.0.0",
