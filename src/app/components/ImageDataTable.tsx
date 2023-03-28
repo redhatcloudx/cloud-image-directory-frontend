@@ -1,8 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import 'regenerator-runtime/runtime'
 import { TableComposable, Thead, Tr, Th, Tbody, Td, ExpandableRowContent } from '@patternfly/react-table'
-import { Checkbox } from '@patternfly/react-core'
-import DetailsView from '../detailsView/DetailsView'
+import DetailsView from './DetailsView'
 
 interface columnDetails {
   Header: string,
@@ -11,7 +10,6 @@ interface columnDetails {
 
 interface IImageDataTableProps {
   tableColumns: Array<{}>,
-  provider: string
 }
 
 const TableLayout = ({
@@ -63,14 +61,13 @@ const TableLayout = ({
               <Tr>
                 <Td
                   expand={
-                      row.ref
-                      ? {
-                          rowIndex,
-                          isExpanded: isRowExpanded(row),
-                          onToggle: () => setRowExpanded(row, !isRowExpanded(row)),
-                          expandId: 'composable-expandable-example'
-                        }
-                      : undefined
+                    row.ref &&
+                      {
+                        rowIndex,
+                        isExpanded: isRowExpanded(row),
+                        onToggle: () => setRowExpanded(row, !isRowExpanded(row)),
+                        expandId: 'composable-expandable-example'
+                      }
                   }
                 />
                 {columns.map((col, _colIndex) => {
@@ -79,27 +76,22 @@ const TableLayout = ({
                   )
                 })}
               </Tr>
-              {row.ref ? (
+              { row.ref && (
                 <Tr isExpanded={isRowExpanded(row)}>
                   <Td dataLabel={`Repo detail ${row.ref}`} noPadding={false} colSpan={4}>
                       <ExpandableRowContent>
                         { rowDetails[row.ref] ?
                             <DetailsView
-                                  imageID={rowDetails[row.ref]['imageId']}
-                                  majorRelease={rowDetails[row.ref]['version']}
-                                  architecture={rowDetails[row.ref]['arch']}
-                                  name={rowDetails[row.ref]['name']}
-                                  region={rowDetails[row.ref]['region']}
-                                  date={rowDetails[row.ref]['date']}
-                                  url={rowDetails[row.ref]['ref']}
+                              details={{
+                                ...rowDetails[row.ref],
+                                'provider': row['provider']
+                              }}
                             />
-                          : <div>Loading ...</div>
-                        }
-                        {/* {JSON.stringify(rowDetails[row.ref], null, 2)} */}
+                          : <div>Loading ...</div> }
                       </ExpandableRowContent>
                   </Td>
                 </Tr>
-              ) : null}
+              ) }
               </Tbody>
           )
           })}
@@ -121,11 +113,11 @@ const TableInstance = ({ tableData, tableColumns }) => {
   )
 
   return (
-    <TableLayout data={data} columns={columns} />
+    <TableLayout data={data} columns={columns}/>
   )
 }
 
-const TableQuery = ({ tableColumns, provider }) => {
+const TableQuery = ({ tableColumns }) => {
 
   const [tableData, setTableData] = useState(null)
 
@@ -145,7 +137,7 @@ const TableQuery = ({ tableColumns, provider }) => {
 
   return (
     <span>
-      <TableInstance tableData={tableData} tableColumns={tableColumns}/>
+      <TableInstance tableData={tableData} tableColumns={tableColumns} />
     </span>
   )
 }
@@ -154,11 +146,10 @@ export default class ImageDataTable extends React.Component<IImageDataTableProps
   render () {
     const {
       tableColumns,
-      provider
     } = this.props
 
     return (
-      <TableQuery tableColumns={tableColumns} provider={provider}/>
+      <TableQuery tableColumns={tableColumns} />
     )
   }
 }
