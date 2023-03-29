@@ -27,7 +27,7 @@ const TableLayout = ({
       const reference = row.ref
       let fetchedDetails = {}
 
-      fetch(`https://cloudx-json-bucket.s3.amazonaws.com/images/v1/${reference}`, {
+      fetch(`https://poc.imagedirectory.cloud/images/v1/${reference}`, {
         method: 'get',
       })
       .then(res => res.json())
