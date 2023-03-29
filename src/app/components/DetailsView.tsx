@@ -100,8 +100,6 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
       details
     } = this.props
 
-    console.log(details)
-
     let cliCommand
     let shellUrl
     let displayItems = [
@@ -199,11 +197,11 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
           </TextContent>
           <TextContent id="test2" className="pf-u-py-xl">
             <TextList component="dl">
-              {displayItems.map((item, _index) => {
+              {displayItems.map((item, index) => {
                 return(
                   <div>
-                    <TextListItem component="dt">{item.Title}</TextListItem>
-                    <TextListItem component="dd">{item.Data}</TextListItem>
+                    <TextListItem key={`menu-title-${index}`} component="dt">{item.Title}</TextListItem>
+                    <TextListItem key={`menu-data-${index}`} component="dd">{item.Data}</TextListItem>
                   </div>
                 )
               })}
