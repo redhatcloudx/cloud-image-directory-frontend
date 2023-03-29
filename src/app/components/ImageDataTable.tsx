@@ -130,22 +130,17 @@ const TableQuery = ({ tableData, tableColumns }) => {
   )
 }
 
-const ImageDataTable = ({tableColumns }) => {
+const ImageDataTable = ({tableColumns, pathPrefix}) => {
   const [page, setPage] = React.useState(1)
   const [tableData, setTableData] = useState(null)
 
   useEffect(() => {
-    fetch(`https://poc.imagedirectory.cloud/images/v1/idx/list/sort-by-date/${page}`, {
-      method: 'get',
-    })
-    .then(res => res.json())
-    .then(data => {
-      setTableData(data)
-    })
+    loadData(page)
   }, [])
 
   const loadData = (newPage) => {
-    fetch(`https://poc.imagedirectory.cloud/images/v1/idx/list/sort-by-date/${newPage}`, {
+    // -1 is necessary as our index files start at 0 the react table at 1
+    fetch(`${pathPrefix}/${newPage-1}`, {
       method: 'get',
     })
     .then(res => res.json())
