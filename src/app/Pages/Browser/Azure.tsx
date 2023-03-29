@@ -20,7 +20,7 @@ const columns = [
   },
 ]
 
-const Azure: React.FunctionComponent<{title: string}> = ({title}) => {
+const Azure: React.FunctionComponent<{ title: string }> = ({ title }) => {
 
   useDocumentTitle(title)
   return (
@@ -28,13 +28,13 @@ const Azure: React.FunctionComponent<{title: string}> = ({title}) => {
       <PageSection variant={PageSectionVariants.darker}>
         <Bullseye>
           <img src={azure_logo}
-          style={{
-            height: 400,
-          }}></img>
-          <Title headingLevel="h1"  size={TitleSizes['4xl']}>Azure Image Browser</Title>
+            style={{
+              height: 400,
+            }}></img>
+          <Title headingLevel="h1" size={TitleSizes['4xl']}>Azure Image Browser</Title>
         </Bullseye>
       </PageSection>
-        <ImageDataTable tableColumns={columns} pathPrefix={'https://poc.imagedirectory.cloud/images/v1/idx/list/sort-by-date-azure'}/>
+      <ImageDataTable tableColumns={columns} pathPrefix={'https://imagedirectory.cloud/images/v1/idx/list/sort-by-date-azure'} />
       <PageSection >
         <Bullseye>
           <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>

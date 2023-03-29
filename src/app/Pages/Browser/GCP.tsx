@@ -20,7 +20,7 @@ const columns = [
   },
 ]
 
-const GCP: React.FunctionComponent<{title: string}> = ({title}) => {
+const GCP: React.FunctionComponent<{ title: string }> = ({ title }) => {
 
   useDocumentTitle(title)
   return (
@@ -31,10 +31,10 @@ const GCP: React.FunctionComponent<{title: string}> = ({title}) => {
             style={{
               height: 400,
             }}></img>
-          <Title headingLevel="h1"  size={TitleSizes['4xl']}>Google Cloud Image Browser</Title>
+          <Title headingLevel="h1" size={TitleSizes['4xl']}>Google Cloud Image Browser</Title>
         </Bullseye>
       </PageSection>
-      <ImageDataTable tableColumns={columns} pathPrefix={'https://poc.imagedirectory.cloud/images/v1/idx/list/sort-by-date-google'}/>
+      <ImageDataTable tableColumns={columns} pathPrefix={'https://imagedirectory.cloud/images/v1/idx/list/sort-by-date-google'} />
       <PageSection >
         <Bullseye>
           <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>

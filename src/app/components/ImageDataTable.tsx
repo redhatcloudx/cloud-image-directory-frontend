@@ -27,17 +27,17 @@ const TableLayout = ({
       const reference = row.ref
       let fetchedDetails = {}
 
-      fetch(`https://poc.imagedirectory.cloud/images/v1/${reference}`, {
+      fetch(`https://imagedirectory.cloud/images/v1/${reference}`, {
         method: 'get',
       })
-      .then(res => res.json())
-      .then(details => {
-        fetchedDetails[ref] = details
-        setRowDetails(rowDetails => ({
-          ...rowDetails,
-          ...fetchedDetails
-        }))
-      })
+        .then(res => res.json())
+        .then(details => {
+          fetchedDetails[ref] = details
+          setRowDetails(rowDetails => ({
+            ...rowDetails,
+            ...fetchedDetails
+          }))
+        })
       return isExpanding ? [...otherExpandedRowIds, row.ref] : otherExpandedRowIds
     })
 
@@ -45,7 +45,7 @@ const TableLayout = ({
 
   return (
     <React.Fragment>
-        <TableComposable aria-label="Expandable table">
+      <TableComposable aria-label="Expandable table">
         <Thead>
           <Tr>
             <Th />
@@ -63,12 +63,12 @@ const TableLayout = ({
                 <Td
                   expand={
                     row.ref &&
-                      {
-                        rowIndex,
-                        isExpanded: isRowExpanded(row),
-                        onToggle: () => setRowExpanded(row, !isRowExpanded(row)),
-                        expandId: 'composable-expandable-example'
-                      }
+                    {
+                      rowIndex,
+                      isExpanded: isRowExpanded(row),
+                      onToggle: () => setRowExpanded(row, !isRowExpanded(row)),
+                      expandId: 'composable-expandable-example'
+                    }
                   }
                 />
                 {columns.map((col, _colIndex) => {
@@ -77,25 +77,25 @@ const TableLayout = ({
                   )
                 })}
               </Tr>
-              { row.ref && (
+              {row.ref && (
                 <Tr isExpanded={isRowExpanded(row)}>
                   <Td dataLabel={`Repo detail ${row.ref}`} noPadding={false} colSpan={4}>
-                      <ExpandableRowContent>
-                        { rowDetails[row.ref] ?
-                            <DetailsView
-                              details={{
-                                ...rowDetails[row.ref],
-                                'provider': row['provider']
-                              }}
-                            />
-                          : <div>Loading ...</div> }
-                      </ExpandableRowContent>
+                    <ExpandableRowContent>
+                      {rowDetails[row.ref] ?
+                        <DetailsView
+                          details={{
+                            ...rowDetails[row.ref],
+                            'provider': row['provider']
+                          }}
+                        />
+                        : <div>Loading ...</div>}
+                    </ExpandableRowContent>
                   </Td>
                 </Tr>
-              ) }
-              </Tbody>
+              )}
+            </Tbody>
           )
-          })}
+        })}
 
       </TableComposable>
     </React.Fragment>
@@ -114,7 +114,7 @@ const TableInstance = ({ tableData, tableColumns }) => {
   )
 
   return (
-    <TableLayout data={data} columns={columns}/>
+    <TableLayout data={data} columns={columns} />
   )
 }
 
@@ -130,7 +130,7 @@ const TableQuery = ({ tableData, tableColumns }) => {
   )
 }
 
-const ImageDataTable = ({tableColumns, pathPrefix}) => {
+const ImageDataTable = ({ tableColumns, pathPrefix }) => {
   const [page, setPage] = React.useState(1)
   const [tableData, setTableData] = useState(null)
 
@@ -140,13 +140,13 @@ const ImageDataTable = ({tableColumns, pathPrefix}) => {
 
   const loadData = (newPage) => {
     // -1 is necessary as our index files start at 0 the react table at 1
-    fetch(`${pathPrefix}/${newPage-1}`, {
+    fetch(`${pathPrefix}/${newPage - 1}`, {
       method: 'get',
     })
-    .then(res => res.json())
-    .then(data => {
-      setTableData(data)
-    })
+      .then(res => res.json())
+      .then(data => {
+        setTableData(data)
+      })
   }
 
   const onSetPage = (_event: React.MouseEvent | React.KeyboardEvent | MouseEvent, newPage: number) => {
@@ -172,7 +172,7 @@ const ImageDataTable = ({tableColumns, pathPrefix}) => {
         onSetPage={onSetPage}
         onPerPageSelect={onPerPageSelect}
       />
-      <TableQuery tableColumns={tableColumns} tableData={tableData}/>
+      <TableQuery tableColumns={tableColumns} tableData={tableData} />
       <Pagination
         perPageComponent="button"
         itemCount={368}
