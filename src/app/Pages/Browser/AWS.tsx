@@ -19,7 +19,7 @@ const columns = [
   },
 ]
 
-const AWS: React.FunctionComponent<{title: string}> = ({title}) => {
+const AWS: React.FunctionComponent<{ title: string }> = ({ title }) => {
 
   useDocumentTitle(title)
   return (
@@ -27,13 +27,13 @@ const AWS: React.FunctionComponent<{title: string}> = ({title}) => {
       <PageSection variant={PageSectionVariants.darker}>
         <Bullseye>
           <img src={aws_logo}
-          style={{
-            height: 400,
-          }}></img>
-          <Title headingLevel="h1"  size={TitleSizes['4xl']}>AWS Image Browser</Title>
+            style={{
+              height: 400,
+            }}></img>
+          <Title headingLevel="h1" size={TitleSizes['4xl']}>AWS Image Browser</Title>
         </Bullseye>
       </PageSection>
-      <ImageDataTable tableColumns={columns} pathPrefix={'https://poc.imagedirectory.cloud/images/v1/idx/list/sort-by-date-aws'}/>
+      <ImageDataTable tableColumns={columns} pathPrefix={'https://imagedirectory.cloud/images/v1/idx/list/sort-by-date-aws'} />
       <PageSection >
         <Bullseye>
           <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>
