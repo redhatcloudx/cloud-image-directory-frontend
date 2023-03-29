@@ -33,7 +33,7 @@ const AWS: React.FunctionComponent<{title: string}> = ({title}) => {
           <Title headingLevel="h1"  size={TitleSizes['4xl']}>AWS Image Browser</Title>
         </Bullseye>
       </PageSection>
-      <ImageDataTable tableColumns={columns} />
+      <ImageDataTable tableColumns={columns} pathPrefix={'https://cloudx-json-bucket.s3.amazonaws.com/images/v1/idx/list/sort-by-date-aws'}/>
       <PageSection >
         <Bullseye>
           <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>

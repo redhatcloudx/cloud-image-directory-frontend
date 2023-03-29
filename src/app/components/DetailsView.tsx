@@ -100,6 +100,8 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
       details
     } = this.props
 
+    console.log(details)
+
     let cliCommand
     let shellUrl
     let displayItems = [
@@ -167,7 +169,7 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
         break
 
       case 'google':
-        const image_path = details['url'].split('projects')[1]
+        const image_path = details['selflink'].split('projects')[1]
         cliCommand = `gcloud beta compute instances create ${machineName} \\
         --zone=${zoneName} \\
         --machine-type=${machineType} \\
@@ -207,7 +209,7 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
               })}
             </TextList>
             { details['provider'] != 'azure' &&
-              <Button component="a" href={details['url']} target="_blank" rel="noreferrer"  variant="danger">
+              <Button component="a" href={details['selflink']} target="_blank" rel="noreferrer"  variant="danger">
                 Launch now
               </Button>
             }
