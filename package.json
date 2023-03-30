@@ -1,28 +1,15 @@
 {
-  "name": "cloud-image-directory",
-  "version": "0.0.1",
-  "description": "A web portal for locating RHEL cloud images for public cloud providers.",
-  "repository": "https://github.com/redhatcloudx/cloud-image-directory-frontend",
-  "homepage": "",
-  "license": "MIT",
-  "private": true,
-  "scripts": {
-    "prebuild": "npm run clean",
-    "dr:surge": "node dr-surge.js",
-    "build": "webpack --config webpack.prod.js && npm run dr:surge",
-    "start": "sirv dist --cors --single --host --port 8080",
-    "start:dev": "webpack serve --color --progress --stats-error-details --config webpack.dev.js",
-    "test": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "eslint": "eslint --ext .tsx,.js ./src/",
-    "lint": "npm run eslint",
-    "format": "prettier --check --write ./src/**/*.{tsx,ts}",
-    "type-check": "tsc --noEmit",
-    "ci-checks": "npm run type-check && npm run lint && npm run test:coverage",
-    "build:bundle-profile": "webpack --config webpack.prod.js --profile --json > stats.json",
-    "bundle-profile:analyze": "npm run build:bundle-profile && webpack-bundle-analyzer ./stats.json",
-    "clean": "rimraf dist"
+  "dependencies": {
+    "@patternfly/react-core": "^4.181.1",
+    "@patternfly/react-icons": "^4.32.1",
+    "@patternfly/react-table": "^4.93.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom-last-location": "^0.2.0",
+    "regenerator-runtime": "^0.13.11",
+    "sirv-cli": "^2.0.0"
   },
+  "description": "A web portal for locating RHEL cloud images for public cloud providers.",
   "devDependencies": {
     "@babel/preset-typescript": "^7.21.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -77,14 +64,27 @@
     "webpack-dev-server": "^4.13.1",
     "webpack-merge": "^5.8.0"
   },
-  "dependencies": {
-    "@patternfly/react-core": "^4.181.1",
-    "@patternfly/react-icons": "^4.32.1",
-    "@patternfly/react-table": "^4.93.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom-last-location": "^0.2.0",
-    "regenerator-runtime": "^0.13.11",
-    "sirv-cli": "^2.0.0"
-  }
+  "homepage": "",
+  "license": "MIT",
+  "name": "cloud-image-directory",
+  "private": true,
+  "repository": "https://github.com/redhatcloudx/cloud-image-directory-frontend",
+  "scripts": {
+    "build": "webpack --config webpack.prod.js && npm run dr:surge",
+    "build:bundle-profile": "webpack --config webpack.prod.js --profile --json > stats.json",
+    "bundle-profile:analyze": "npm run build:bundle-profile && webpack-bundle-analyzer ./stats.json",
+    "ci-checks": "npm run type-check && npm run lint && npm run test:coverage",
+    "clean": "rimraf dist",
+    "dr:surge": "node dr-surge.js",
+    "eslint": "eslint --ext .tsx,.js ./src/",
+    "format": "prettier --check --write ./src/**/*.{tsx,ts}",
+    "lint": "npm run eslint",
+    "prebuild": "npm run clean",
+    "start": "sirv dist --cors --single --host --port 8080",
+    "start:dev": "webpack serve --color --progress --stats-error-details --config webpack.dev.js",
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "type-check": "tsc --noEmit"
+  },
+  "version": "0.0.1"
 }
