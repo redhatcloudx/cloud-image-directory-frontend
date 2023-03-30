@@ -37,7 +37,7 @@ const routes: AppRouteConfig[] = [
   {
     component: <Home title='Cloud Image Directory | Home'/>,
     exact: true,
-    label: 'Cloud Image Directory',
+    label: 'Home',
     path: '/'
   },
   {
