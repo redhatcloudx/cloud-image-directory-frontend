@@ -1,9 +1,10 @@
-import * as React from 'react';
+import * as React from 'react'
 import {
   PageSectionVariants, PageSection, Title, Flex, FlexItem, Bullseye, TitleSizes, Text, TextVariants,
-} from '@patternfly/react-core';
+} from '@patternfly/react-core'
 import ProviderCard from '@app/components/ProviderCard'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
+import Footer from '@app/components/Footer'
 
 const providerInfos = [
   {
@@ -53,11 +54,7 @@ const Home: React.FunctionComponent<{title: string}> = ({title}) => {
       </Bullseye>
     </PageSection>
     <PageSection variant={PageSectionVariants.darker}></PageSection>
-    <PageSection >
-      <Bullseye>
-        <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>
-      </Bullseye>
-    </PageSection>
+    <Footer />
     </div>
   )
 }

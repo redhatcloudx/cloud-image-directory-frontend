@@ -3,6 +3,7 @@ import { Card, PageSection, PageSectionVariants, Bullseye, Text, TextVariants, T
 import ImageDataTable from '@app/components/ImageDataTable'
 import aws_logo from '@app/bgimages/aws_clear.png'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
+import Footer from '@app/components/Footer'
 
 const columns = [
   {
@@ -34,11 +35,7 @@ const AWS: React.FunctionComponent<{ title: string }> = ({ title }) => {
         </Bullseye>
       </PageSection>
       <ImageDataTable tableColumns={columns} pathPrefix={'https://imagedirectory.cloud/images/v1/idx/list/sort-by-date-aws'} />
-      <PageSection >
-        <Bullseye>
-          <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>
-        </Bullseye>
-      </PageSection>
+      <Footer />
     </>
   )
 }
