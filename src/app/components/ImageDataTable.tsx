@@ -133,10 +133,22 @@ const TableQuery = ({ tableData, tableColumns }) => {
 const ImageDataTable = ({ tableColumns, pathPrefix }) => {
   const [page, setPage] = React.useState(1)
   const [tableData, setTableData] = useState(null)
+  const [index, setIndex] = useState({})
 
   useEffect(() => {
     loadData(page)
+    loadIndex()
   }, [])
+
+  const loadIndex = () => {
+    fetch(`${pathPrefix}/pages`, {
+      method: 'get',
+    })
+      .then(res => res.json())
+      .then(data => {
+        setIndex(data)
+      })
+  }
 
   const loadData = (newPage) => {
     // -1 is necessary as our index files start at 0 the react table at 1
@@ -154,33 +166,30 @@ const ImageDataTable = ({ tableColumns, pathPrefix }) => {
     loadData(newPage)
   }
 
-  const onPerPageSelect = (
-    _event: React.MouseEvent | React.KeyboardEvent | MouseEvent,
-    newPage: number
-  ) => {
-    setPage(newPage)
-    loadData(newPage)
-  }
   return (
     <div>
       <Pagination
         perPageComponent="button"
-        itemCount={368}
+        itemCount={index['last']}
         widgetId="top-pagination"
         page={page}
         variant={PaginationVariant.top}
         onSetPage={onSetPage}
-        onPerPageSelect={onPerPageSelect}
+        perPageOptions={[{
+          title:index['entries'],
+          value:index['entries']
+        }]}
+        perPage={index['entries']}
       />
       <TableQuery tableColumns={tableColumns} tableData={tableData} />
       <Pagination
         perPageComponent="button"
-        itemCount={368}
+        itemCount={index['last']}
         widgetId="bottom-pagination"
         page={page}
         variant={PaginationVariant.bottom}
         onSetPage={onSetPage}
-        onPerPageSelect={onPerPageSelect}
+        perPage={index['entries']}
       />
     </div>
   )
