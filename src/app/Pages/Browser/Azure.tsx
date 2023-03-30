@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Card, PageSection, PageSectionVariants, Bullseye, Text, TextVariants, Title, TitleSizes, ClipboardCopy } from '@patternfly/react-core'
 import ImageDataTable from '@app/components/ImageDataTable'
-import AzureImageModal from '@app/components/modals/AzureImageModal'
 import azure_logo from '@app/bgimages/azure_clear.png'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
+import Footer from '@app/components/Footer'
 
 const columns = [
   {
@@ -35,11 +35,7 @@ const Azure: React.FunctionComponent<{ title: string }> = ({ title }) => {
         </Bullseye>
       </PageSection>
       <ImageDataTable tableColumns={columns} pathPrefix={'https://imagedirectory.cloud/images/v1/idx/list/sort-by-date-azure'} />
-      <PageSection >
-        <Bullseye>
-          <Text component={TextVariants.small}>{`Cloud Experience ${new Date().getFullYear()}.`}</Text>
-        </Bullseye>
-      </PageSection>
+      <Footer />
     </>
   )
 }
