@@ -117,6 +117,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
       <MastheadToggle>
         {isMobileView &&
           <PageToggleButton
+            aria-label="navToggleButton"
             variant="plain"
             onNavToggle={isMobileView ? onNavToggleMobile : onNavToggle}>
             <BarsIcon />
