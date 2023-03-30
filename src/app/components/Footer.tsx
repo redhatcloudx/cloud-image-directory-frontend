@@ -17,20 +17,14 @@ const Footer = () => {
       <Bullseye>
         <Grid hasGutter={true} component='ul'>
           <GridItem component='li'>
-              <TextContent>
-                Can't find your favorite image <Emoji symbol="💔" /> ?
-              </TextContent>
+            <TextContent>
+              Can't find your favorite image <Emoji symbol="💔" /> ?
+            </TextContent>
           </GridItem>
           <GridItem component='li'>
             <Bullseye>
               <Button variant="danger">
-                  <Link
-                    to='#'
-                    onClick={(e) => {
-                      window.location.href = 'mailto:contact@imagedirectory.cloud'
-                      e.preventDefault()
-                    }}
-                >
+                <Link to='mailto:contact@imagedirectory.cloud'>
                   <Emoji symbol="📨" /> Let us know!
                 </Link>
               </Button>
