@@ -23,7 +23,9 @@ describe('App tests', () => {
     Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 600 })
     const getById = queryByAttribute.bind(null, 'id')
     const dom = render(<App />)
-    const navButton = screen.getByRole('button')
+    const navButton = screen.getByRole('button', {
+      name: /navToggleButton/i
+    })
 
     act(() => window.dispatchEvent(new Event('resize')))
     expect(getById(dom.container,'page-sidebar')).toHaveClass('pf-m-collapsed')
