@@ -11,6 +11,10 @@ const columns = [
     accessor: 'name'
   },
   {
+    Header: 'Region',
+    accessor: 'region'
+  },
+  {
     Header: 'Architecture',
     accessor: 'arch'
   },
