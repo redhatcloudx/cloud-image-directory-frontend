@@ -3,7 +3,7 @@ import { PageSection, PageSectionVariants, Bullseye, Text, TextVariants, Title, 
 import ImageDataTable from '@app/components/ImageDataTable'
 import google_clear from '@app/bgimages/google_clear.png'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
-import Footer
+import Footer from '@app/components/Footer'
 
 const columns = [
   {
