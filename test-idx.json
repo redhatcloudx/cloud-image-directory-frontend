@@ -1,20 +1,20 @@
 {
   "index": [
     {
-      "name": "RHEL",
       "arch": "x86",
-      "version": "9.0",
-      "imageId": "someID",
       "date": "2021-03-18T15:22:40.000Z",
-      "filePath": "./testfiles/image1.json"
+      "filePath": "./testfiles/image1.json",
+      "imageId": "someID",
+      "name": "RHEL",
+      "version": "9.0"
     },
     {
-      "name": "RHEL",
       "arch": "x86",
-      "version": "9.0",
-      "imageId": "someID",
       "date": "2021-03-18T15:22:40.000Z",
-      "filePath": "./testfiles/image1.json"
+      "filePath": "./testfiles/image1.json",
+      "imageId": "someID",
+      "name": "RHEL",
+      "version": "9.0"
     }
   ]
 }
