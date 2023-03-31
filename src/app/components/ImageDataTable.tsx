@@ -102,22 +102,6 @@ const TableLayout = ({
   )
 }
 
-const TableInstance = ({ tableData, tableColumns }) => {
-  const [columns, data] = useMemo(
-    () => {
-      return [
-        tableColumns,
-        tableData
-      ]
-    },
-    [tableData]
-  )
-
-  return (
-    <TableLayout data={data} columns={columns} />
-  )
-}
-
 const TableQuery = ({ tableData, tableColumns }) => {
   if (!tableData) {
     return <div>Fetching Image Data...</div>
@@ -125,7 +109,7 @@ const TableQuery = ({ tableData, tableColumns }) => {
 
   return (
     <span>
-      <TableInstance tableData={tableData} tableColumns={tableColumns} />
+      <TableLayout data={tableData} columns={tableColumns} />
     </span>
   )
 }
@@ -146,13 +130,18 @@ const ImageDataTable = ({ tableColumns, pathPrefix }) => {
     })
       .then(res => res.json())
       .then(data => {
-        setIndex(data)
+        setIndex({
+          ...data,
+          //+1 is necessary to calculate the total number of
+          // entries as the first page is "0"
+          totalRows: (data['last']+1) * data['entries']
+        })
       })
   }
 
   const loadData = (newPage) => {
     // -1 is necessary as our index files start at 0 the react table at 1
-    fetch(`${pathPrefix}/${newPage - 1}`, {
+    fetch(`${pathPrefix}/${newPage-1}`, {
       method: 'get',
     })
       .then(res => res.json())
@@ -170,7 +159,7 @@ const ImageDataTable = ({ tableColumns, pathPrefix }) => {
     <div>
       <Pagination
         perPageComponent="button"
-        itemCount={index['last']}
+        itemCount={index['totalRows']}
         widgetId="top-pagination"
         page={page}
         variant={PaginationVariant.top}
@@ -184,7 +173,7 @@ const ImageDataTable = ({ tableColumns, pathPrefix }) => {
       <TableQuery tableColumns={tableColumns} tableData={tableData} />
       <Pagination
         perPageComponent="button"
-        itemCount={index['last']}
+        itemCount={index['totalRows']}
         widgetId="bottom-pagination"
         page={page}
         variant={PaginationVariant.bottom}
