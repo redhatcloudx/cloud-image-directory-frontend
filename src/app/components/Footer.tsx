@@ -37,6 +37,9 @@ const Footer = () => {
           </GridItem>
         </Grid>
       </Bullseye>
+      <Bullseye>
+        <Text component='small'>Disclaimer: This is an experimental project from Red Hat.</Text>
+      </Bullseye>
     </PageSection>
   )
 }
