@@ -63,7 +63,7 @@ const routes: AppRouteConfig[] = [
     component: <Blog title='Cloud Image Directory | Blog'/>,
     exact: true,
     label: 'Blog',
-    path: '/browser/Blog',
+    path: '/Blog',
   },
 ]
 
