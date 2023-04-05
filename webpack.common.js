@@ -35,6 +35,10 @@ module.exports = env => {
         },
         {
           test: /\.(svg|ttf|eot|woff|woff2)$/,
+          type: 'asset',
+          generator: {
+            filename: 'fonts/[name][ext]',
+          },
           // only process modules with this loader
           // if they live under a 'fonts' or 'pficon' directory
           include: [
@@ -44,29 +48,14 @@ module.exports = env => {
             path.resolve(__dirname, 'node_modules/@patternfly/patternfly/assets/fonts'),
             path.resolve(__dirname, 'node_modules/@patternfly/patternfly/assets/pficon')
           ],
-          use: {
-            loader: 'file-loader',
-            options: {
-              // Limit at 50k. larger files emited into separate files
-              limit: 5000,
-              outputPath: 'fonts',
-              name: '[name].[ext]',
-            }
-          }
         },
         {
           test: /\.svg$/,
+          type: 'asset',
+          generator: {
+            filename: 'svgs/[name][ext]',
+          },
           include: input => input.indexOf('background-filter.svg') > 1,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 5000,
-                outputPath: 'svgs',
-                name: '[name].[ext]',
-              }
-            }
-          ]
         },
         {
           test: /\.svg$/,
@@ -80,21 +69,21 @@ module.exports = env => {
         },
         {
           test: /\.svg$/,
+          type: 'asset/source',
           // only process SVG modules with this loader when they don't live under a 'bgimages',
           // 'fonts', or 'pficon' directory, those are handled with other loaders
-          include: input => (
-            (input.indexOf(BG_IMAGES_DIRNAME) === -1) &&
-            (input.indexOf('fonts') === -1) &&
-            (input.indexOf('background-filter') === -1) &&
-            (input.indexOf('pficon') === -1)
-          ),
-          use: {
-            loader: 'raw-loader',
-            options: {}
-          }
+          include: input =>
+            input.indexOf(BG_IMAGES_DIRNAME) === -1 &&
+            input.indexOf('fonts') === -1 &&
+            input.indexOf('background-filter') === -1 &&
+            input.indexOf('pficon') === -1
         },
         {
           test: /\.(jpg|jpeg|png|gif)$/i,
+          type: 'asset',
+          generator: {
+            filename: 'images/[name][ext]',
+          },
           include: [
             path.resolve(__dirname, 'src'),
             path.resolve(__dirname, 'node_modules/patternfly'),
@@ -105,16 +94,6 @@ module.exports = env => {
             path.resolve(__dirname, 'node_modules/@patternfly/react-table/node_modules/@patternfly/react-styles/css/assets/images'),
             path.resolve(__dirname, 'node_modules/@patternfly/react-inline-edit-extension/node_modules/@patternfly/react-styles/css/assets/images')
           ],
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 5000,
-                outputPath: 'images',
-                name: '[name].[ext]',
-              }
-            }
-          ]
         }
       ]
     },
