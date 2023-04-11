@@ -3,6 +3,7 @@
     "@patternfly/react-core": "^4.181.1",
     "@patternfly/react-icons": "^4.32.1",
     "@patternfly/react-table": "^4.93.1",
+    "fzf": "^0.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom-last-location": "^0.2.0",

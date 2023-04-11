@@ -9,9 +9,10 @@ import {
 } from 'react-router-dom-last-location'
 import { Home } from '@app/Pages/Dashboard/Home'
 import {
-  AWSImageBrowser,
-  AzureImageBrowser,
-  GCPImageBrowser
+    AWSImageBrowser,
+    AzureImageBrowser,
+    GCPImageBrowser,
+    SearchImageBrowser
 } from '@app/Pages/Browser'
 import { NotFound } from '@app/Pages/NotFound/NotFound'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
@@ -58,6 +59,12 @@ const routes: AppRouteConfig[] = [
     exact: true,
     label: 'Azure',
     path: '/browser/Azure',
+  },
+  {
+    component: <SearchImageBrowser title='Cloud Image Directory | Search' />,
+    exact: true,
+    label: 'Search',
+    path: '/browser/search',
   },
   {
     component: <Blog title='Cloud Image Directory | Blog'/>,
