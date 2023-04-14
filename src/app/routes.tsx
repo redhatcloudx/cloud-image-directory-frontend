@@ -17,6 +17,7 @@ import {
 import { NotFound } from '@app/Pages/NotFound/NotFound'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
 import { Blog } from './Pages/Blog'
+import { ImageDetails } from './Pages/ImageDetails'
 
 let routeFocusTimer: number
 export interface IAppRoute {
@@ -61,10 +62,10 @@ const routes: AppRouteConfig[] = [
     path: '/browser/Azure',
   },
   {
-    component: <SearchImageBrowser title='Cloud Image Directory | Search' />,
+    component: <ImageDetails title='Cloud Image Directory | Image Details'/>,
     exact: true,
     label: 'Search',
-    path: '/browser/search',
+    path: '/image/:provider/:region/:imageName',
   },
   {
     component: <Blog title='Cloud Image Directory | Blog'/>,
