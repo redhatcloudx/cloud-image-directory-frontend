@@ -3,13 +3,14 @@ import { ApplicationLauncher, ApplicationLauncherItem } from '@patternfly/react-
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
 import  fuzzysort from 'fuzzysort'
 import { SearchIcon } from '@patternfly/react-icons'
+import { Link } from 'react-router-dom'
 
 
 const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
     const [data, setData] = React.useState([])
     const [results, setresults] = React.useState([])
     const [outputFocus, setOutputFocus] = React.useState(false)
-    const searchInput = React.useRef(null)
+    const [inputFocus, setInputFocus] = React.useState(false)
 
     useDocumentTitle(title)
 
@@ -41,35 +42,44 @@ const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
     }
 
     let list = results.map((p, idx) => (
-      <ApplicationLauncherItem onFocus={() => setOutputFocus(true)} key={`search-result-list-${idx}`}
-         href={"https://imagedirectory.cloud/images/v1/" + p['target']} style={{
-          fontWeight: 'bold',
-          color: 'black'
-        }}>
-          {
-            fuzzysort.highlight(p, (m, i) => (
-              <span style={{
-                fontWeight: 'bold',
-                color: 'red'
-              }}
-              key={`search-result-${i}`}>{m}</span>))
-          }
+      <ApplicationLauncherItem
+        onMouseEnter={() => {setOutputFocus(true)
+        console.log(p['target'])}}
+        onMouseLeave={() => setOutputFocus(false)}
+        key={`search-result-list-${idx}`}
+        >
+          <Link
+            style={{
+              color: 'black'
+            }}
+            to={`/image/${p['target']}`}>
+            {
+              fuzzysort.highlight(p, (m, i) => (
+                <span style={{
+                  fontWeight: 'bold',
+                  color: 'red'
+                }}
+                key={`search-result-${i}`}>{m}</span>))
+            }
+          </Link>
         </ApplicationLauncherItem>
     ))
-
 
     return (
         <>
           {/* TODO: https://hy.reactjs.org/docs/hooks-reference.html#usecallback */}
           <ApplicationLauncher
-            isOpen={
-              list.length > 0 &&
-              (document.activeElement === searchInput.current || outputFocus)
-            }
+            isOpen={list.length > 0 && (inputFocus || outputFocus)}
             items={list}
             toggleIcon={<SearchIcon />}
           />
-          <input ref={searchInput} type="text" onSelect={handleChange} onChange={handleChange} style={{
+          <input
+            type="text"
+            onFocus={() => setInputFocus(true)}
+            onBlur={() => setInputFocus(false)}
+            onSelect={handleChange}
+            onChange={handleChange}
+            style={{
               backgroundColor: 'black',
           }} />
         </>
