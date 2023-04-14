@@ -30,6 +30,7 @@ import {
 } from '@app/routes'
 import logo from '@app/bgimages/cloud_download.svg'
 import BarsIcon from '@patternfly/react-icons/dist/js/icons/bars-icon'
+import { Search } from '@app/components/Search'
 
 interface IAppLayout {
   children: React.ReactNode
@@ -132,6 +133,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
     {!isMobileView &&
       headerJumpLinks
     }
+    <Search title={'Search'}/>
     </MastheadContent>
   </Masthead>
   )
