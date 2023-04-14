@@ -26,7 +26,7 @@ const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
 
     React.useEffect(() => {
         loadData()
-    })
+    }, [])
 
     function handleChange(event) {
         /* TODO: https://www.geeksforgeeks.org/lodash-_-debounce-method/ */
