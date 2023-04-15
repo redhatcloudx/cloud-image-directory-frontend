@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
     const [data, setData] = React.useState([])
-    const [results, setResults] = React.useState([])
+    const [results, setResults] = React.useState<Fuzzysort.Results>(Object.assign([], { total: 0 }))
     const [outputFocus, setOutputFocus] = React.useState(false)
     const [inputFocus, setInputFocus] = React.useState(false)
 
