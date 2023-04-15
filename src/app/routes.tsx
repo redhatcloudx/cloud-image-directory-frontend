@@ -46,19 +46,19 @@ const routes: AppRouteConfig[] = [
     component: <AWSImageBrowser title='Cloud Image Directory | AWS Image Browser'/>,
     exact: true,
     label: 'AWS',
-    path: '/browser/AWS',
+    path: '/browser/aws',
   },
   {
     component: <GCPImageBrowser title='Cloud Image Directory | GCP Image Browser'/>,
     exact: true,
     label: 'GCP',
-    path: '/browser/GCP',
+    path: '/browser/google',
   },
   {
     component: <AzureImageBrowser title='Cloud Image Directory | Azure Image Browser'/>,
     exact: true,
     label: 'Azure',
-    path: '/browser/Azure',
+    path: '/browser/azure',
   },
   {
     component: <ImageDetails title='Cloud Image Directory | Image Details'/>,
