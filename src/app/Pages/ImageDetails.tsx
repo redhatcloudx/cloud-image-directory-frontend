@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom'
 
 const ImageDetails: React.FunctionComponent<{title: string}> = ({title}) => {
   const [details, setDetails] = useState({})
-  let { provider, region, imageName } = useParams()
+  const { provider, region, imageName } = useParams()
   useDocumentTitle(title)
 
   useEffect(() => {

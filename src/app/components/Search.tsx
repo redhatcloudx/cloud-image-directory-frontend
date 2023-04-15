@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
     const [data, setData] = React.useState([])
-    const [results, setresults] = React.useState([])
+    const [results, setResults] = React.useState([])
     const [outputFocus, setOutputFocus] = React.useState(false)
     const [inputFocus, setInputFocus] = React.useState(false)
 
@@ -29,7 +29,6 @@ const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
     }, [])
 
     function handleChange(event) {
-        /* TODO: https://www.geeksforgeeks.org/lodash-_-debounce-method/ */
         const res = fuzzysort.go(
           event.target.value,
           data,
@@ -38,7 +37,7 @@ const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
             limit: 10,
           }
         )
-        setresults(res)
+        setResults(res)
     }
 
     let list = results.map((p, idx) => (
@@ -52,7 +51,7 @@ const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
             style={{
               color: 'black'
             }}
-            to={`/image/${p['target']}`}>
+            to={`/browser/${p['target']}`}>
             {
               fuzzysort.highlight(p, (m, i) => (
                 <span style={{
