@@ -40,7 +40,7 @@ const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
         setResults(res)
     }
 
-    let list = results.map((p, idx) => (
+    const list = results.map((p, idx) => (
       <ApplicationLauncherItem
         onMouseEnter={() => {setOutputFocus(true)}}
         onMouseLeave={() => setOutputFocus(false)}
