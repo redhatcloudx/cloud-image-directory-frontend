@@ -42,8 +42,7 @@ const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
 
     let list = results.map((p, idx) => (
       <ApplicationLauncherItem
-        onMouseEnter={() => {setOutputFocus(true)
-        console.log(p['target'])}}
+        onMouseEnter={() => {setOutputFocus(true)}}
         onMouseLeave={() => setOutputFocus(false)}
         key={`search-result-list-${idx}`}
         >
