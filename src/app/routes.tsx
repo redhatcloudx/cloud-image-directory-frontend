@@ -11,8 +11,7 @@ import { Home } from '@app/Pages/Dashboard/Home'
 import {
     AWSImageBrowser,
     AzureImageBrowser,
-    GCPImageBrowser,
-    SearchImageBrowser
+    GCPImageBrowser
 } from '@app/Pages/Browser'
 import { NotFound } from '@app/Pages/NotFound/NotFound'
 import { useDocumentTitle } from '@app/utils/useDocumentTitle'
@@ -65,7 +64,7 @@ const routes: AppRouteConfig[] = [
     component: <ImageDetails title='Cloud Image Directory | Image Details'/>,
     exact: true,
     label: 'Search',
-    path: '/image/:provider/:region/:imageName',
+    path: '/browser/:provider/:region/:imageName',
   },
   {
     component: <Blog title='Cloud Image Directory | Blog'/>,
