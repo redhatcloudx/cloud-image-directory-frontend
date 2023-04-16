@@ -8,6 +8,7 @@ import Footer from '@app/components/Footer'
 import DetailsView from '@app/components/DetailsView'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import fetch from 'cross-fetch'
 
 const ImageDetails: React.FunctionComponent<{title: string}> = ({title}) => {
   const [details, setDetails] = useState({})

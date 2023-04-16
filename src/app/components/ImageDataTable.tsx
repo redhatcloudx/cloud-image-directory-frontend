@@ -3,6 +3,7 @@ import 'regenerator-runtime/runtime'
 import { TableComposable, Thead, Tr, Th, Tbody, Td, ExpandableRowContent } from '@patternfly/react-table'
 import { Pagination, PaginationVariant } from '@patternfly/react-core'
 import DetailsView from './DetailsView'
+import fetch from 'cross-fetch'
 
 interface columnDetails {
   Header: string,
