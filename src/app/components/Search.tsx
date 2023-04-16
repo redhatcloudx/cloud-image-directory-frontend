@@ -4,7 +4,7 @@ import { useDocumentTitle } from '@app/utils/useDocumentTitle'
 import  fuzzysort from 'fuzzysort'
 import { SearchIcon } from '@patternfly/react-icons'
 import { Link } from 'react-router-dom'
-
+import fetch from 'cross-fetch'
 
 const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
     const [data, setData] = React.useState([])
