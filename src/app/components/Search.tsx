@@ -65,7 +65,6 @@ const Search: React.FunctionComponent<{ title: string }> = ({ title }) => {
 
     return (
         <>
-          {/* TODO: https://hy.reactjs.org/docs/hooks-reference.html#usecallback */}
           <ApplicationLauncher
             isOpen={list.length > 0 && (inputFocus || outputFocus)}
             items={list}
