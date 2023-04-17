@@ -15,7 +15,7 @@ module.exports = merge(common('development'), {
     port: PORT,
     compress: true,
     //inline: true,
-    historyApiFallback: true,
+    historyApiFallback: { index: "/", disableDotRule: true },
     //overlay: true,
     open: true,
     headers: {
