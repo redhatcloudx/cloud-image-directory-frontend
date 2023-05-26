@@ -28,9 +28,7 @@ import {
   IAppRoute,
   IAppRouteGroup
 } from '@app/routes'
-import logo from '@app/bgimages/cloud_download.svg'
 import BarsIcon from '@patternfly/react-icons/dist/js/icons/bars-icon'
-import { Search } from '@app/components/Search'
 
 interface IAppLayout {
   children: React.ReactNode
@@ -123,19 +121,18 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
             onNavToggle={isMobileView ? onNavToggleMobile : onNavToggle}>
             <BarsIcon />
           </PageToggleButton>}
-     </MastheadToggle>
-    <MastheadMain>
-      <MastheadBrand>
-        {<img src={logo} onClick={() => navigate('/')} alt={pageTitle} width={250}/>}
-      </MastheadBrand>
-    </MastheadMain>
-    <MastheadContent>
-    {!isMobileView &&
-      headerJumpLinks
-    }
-    <Search title={'Search'}/>
-    </MastheadContent>
-  </Masthead>
+      </MastheadToggle>
+      <MastheadMain>
+        <MastheadBrand>
+          Cloud Image Directory
+        </MastheadBrand>
+      </MastheadMain>
+      <MastheadContent>
+        {!isMobileView &&
+          headerJumpLinks
+        }
+      </MastheadContent>
+    </Masthead>
   )
 
   const Sidebar = (
