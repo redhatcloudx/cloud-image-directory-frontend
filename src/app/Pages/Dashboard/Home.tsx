@@ -1,9 +1,16 @@
 import * as React from 'react'
 import {
-  PageSectionVariants, PageSection, Title, Bullseye, TitleSizes, Text, TextVariants,
+  PageSectionVariants,
+  PageSection,
+  Title,
+  Flex,
+  FlexItem
 } from '@patternfly/react-core'
-import { useDocumentTitle } from '@app/utils/useDocumentTitle'
+import {
+  useDocumentTitle
+} from '@app/utils/useDocumentTitle'
 import Footer from '@app/components/Footer'
+import logo from '@app/bgimages/ohc-hero.png'
 
 const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
 
@@ -11,17 +18,25 @@ const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
   return (
     <div>
       <PageSection className='hero-section'>
-        <Text className='hero-text' component={TextVariants.h1}>
-          Text text text
-        </Text>
+        <Flex className='hero-text' alignItems={{
+          default: 'alignItemsCenter'
+        }}>
+          <FlexItem>
+            <Title headingLevel='h1' size='3xl'>
+              Welcome to Cloud Image Directory
+            </Title>
+            <Title headingLevel='h1' size='lg'>
+              Get the images you need to start developing your Linux on-cloud experience.
+            </Title>
+          </FlexItem>
+          <FlexItem
+            spacer={{ default: 'spacer2xl' }}
+            align={{ default: 'alignRight' }}>
+            <img src={logo} style={{ height: 200 }} />
+          </FlexItem>
+        </Flex>
       </PageSection>
       <PageSection variant={PageSectionVariants.light}>
-        <Bullseye>
-          <Title headingLevel="h1" size={TitleSizes['4xl']}>Cloud Image Directory</Title>
-        </Bullseye>
-        <Bullseye>
-          <Title headingLevel="h2" size={TitleSizes['1xl']}>Providing Easy Access to Linux Cloud Images Since 2023</Title>
-        </Bullseye>
       </PageSection>
       <Footer />
     </div>
