@@ -2,14 +2,11 @@ import * as React from 'react'
 import {
   NavLink,
   useLocation,
-  useNavigate,
-  Link
 } from 'react-router-dom'
 import {
   Nav,
   NavList,
   NavItem,
-  NavExpandable,
   Page,
   PageSidebar,
   SkipToContent,
@@ -19,14 +16,13 @@ import {
   MastheadBrand,
   MastheadContent,
   PageToggleButton,
-  JumpLinks,
-  JumpLinksItem,
-  JumpLinksList
+  Flex,
+  FlexItem,
+  Title,
 } from '@patternfly/react-core'
 import {
   routes,
   IAppRoute,
-  IAppRouteGroup
 } from '@app/routes'
 import BarsIcon from '@patternfly/react-icons/dist/js/icons/bars-icon'
 
@@ -41,7 +37,6 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
   const pageId = 'primary-app-container'
   const pageTitle = 'Cloud Image Directory'
   const location = useLocation()
-  const navigate = useNavigate()
 
   const onNavToggleMobile = () => {
     setIsNavOpenMobile(!isNavOpenMobile)
@@ -61,38 +56,6 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
     </NavItem>
   )
 
-  const renderNavGroup = (group: IAppRouteGroup, groupIndex: number) => (
-    <NavExpandable
-      key={`${group.label}-${groupIndex}`}
-      id={`${group.label}-${groupIndex}`}
-      title={group.label}
-      isActive={group.routes.some((route) => route.path === location.pathname)}
-    >
-      {group.routes.map((route, idx) => route.label && renderNavItem(route, idx))}
-    </NavExpandable>
-  )
-
-  const renderJumpLinkItem = (route: IAppRoute, index: number) => (
-    <JumpLinksItem key={`${route.label}-${index}`} id={`${route.label}-${index}`} isActive={route.path === location.pathname} >
-      <Link to={route.path}>
-        {route.label}
-      </Link>
-    </JumpLinksItem>
-  )
-
-  const renderJumpLinkList = (group: IAppRouteGroup, groupIndex: number) => (
-    <JumpLinks
-      key={`${group.label}-${groupIndex}`}
-      id={`${group.label}-${groupIndex}`}
-      title={group.label}
-      label={`[${group.label}]`}
-    >
-      <JumpLinksList>
-        {group.routes.map((route, idx) => route.label && renderJumpLinkItem(route, idx))}
-      </JumpLinksList>
-    </JumpLinks>
-  )
-
   const NavigationSidebar = (
     <Nav id="nav-primary-simple" theme="dark">
       <NavList id="nav-list-simple">
@@ -103,12 +66,17 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
     </Nav>
   )
 
-  const headerJumpLinks = (
-    <JumpLinks isCentered>
-      {routes.map(
-        (route, idx) => route.label != 'Search' && renderJumpLinkItem(route, idx)
-      )}
-    </JumpLinks>
+  const renderHeaderItems = (route: IAppRoute, index: number) => (
+    <NavItem key={`${route.label}-${index}`} id={`${route.label}-${index}`} isActive={route.path === location.pathname} to={route.path}>
+      {route.label}
+    </NavItem>
+  )
+  const headerToolbar = (
+    <Nav variant="horizontal" aria-label="Horizontal global nav">
+      <NavList>
+        {routes.map((route, idx) => route.label != 'Search' && renderHeaderItems(route, idx))}
+      </NavList>
+    </Nav>
   )
 
   const Header = (
@@ -123,15 +91,27 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
           </PageToggleButton>}
       </MastheadToggle>
       <MastheadMain>
-        <MastheadBrand>
-          Cloud Image Directory
+        <MastheadBrand
+          href='https://imagedirectory.cloud'
+          alt='Cloud Image Directory'
+          className='header-section'>
+          <Title headingLevel='h1' size='lg' className='header-text'>
+            Cloud Image Directory
+          </Title>
         </MastheadBrand>
       </MastheadMain>
-      <MastheadContent>
-        {!isMobileView &&
-          headerJumpLinks
-        }
-      </MastheadContent>
+      <Flex justifyContent={{
+        default: 'justifyContentCenter'
+      }}>
+        <FlexItem>
+          <MastheadContent>
+            {!isMobileView &&
+              headerToolbar
+            }
+          </MastheadContent>
+        </FlexItem>
+      </Flex>
+
     </Masthead>
   )
 
