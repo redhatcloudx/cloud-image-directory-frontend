@@ -28,7 +28,7 @@ const TableLayout = ({
       const reference = row.ref
       let fetchedDetails = {}
 
-      fetch(`https://imagedirectory.cloud/images/v1/${reference}`, {
+      fetch(`https://imagedirectory.cloud/images/${reference}`, {
         method: 'get',
       })
         .then(res => res.json())
@@ -135,14 +135,14 @@ const ImageDataTable = ({ tableColumns, pathPrefix }) => {
           ...data,
           //+1 is necessary to calculate the total number of
           // entries as the first page is "0"
-          totalRows: (data['last']+1) * data['entries']
+          totalRows: (data['last'] + 1) * data['entries']
         })
       })
   }
 
   const loadData = (newPage) => {
     // -1 is necessary as our index files start at 0 the react table at 1
-    fetch(`${pathPrefix}/${newPage-1}`, {
+    fetch(`${pathPrefix}/${newPage - 1}`, {
       method: 'get',
     })
       .then(res => res.json())
@@ -166,8 +166,8 @@ const ImageDataTable = ({ tableColumns, pathPrefix }) => {
         variant={PaginationVariant.top}
         onSetPage={onSetPage}
         perPageOptions={[{
-          title:index['entries'],
-          value:index['entries']
+          title: index['entries'],
+          value: index['entries']
         }]}
         perPage={index['entries']}
       />
