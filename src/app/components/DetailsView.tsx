@@ -32,7 +32,7 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
     const { copied } = this.state;
 
     const { details } = this.props;
-
+    let googleSelflink;
     let cliCommand;
     let shellUrl;
     let displayItems = [
@@ -99,11 +99,11 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
         break;
 
       case 'google':
-        const image_path = details['selflink'].split('projects')[1];
+        googleSelflink = "https://console.cloud.google.com/compute/imagesDetail/projects" + details['selflink'].split('projects')[1];
         cliCommand = `gcloud beta compute instances create <MachineName> \\
         --machine-typei=e2-medium \\
         --subnet=default \\
-        --image="https://www.googleapis.com/compute/v1/projects${image_path}" \\
+        --image="${details['selflink']}" \\
         --boot-disk-device-name=<MachineName> \\
         --project <ProjectName>`;
         shellUrl = 'https://shell.cloud.google.com/?show=terminal';
@@ -116,6 +116,8 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
       default:
         break;
     }
+
+    const buttonLink = details['provider'] == 'google' ? googleSelflink : details['selflink']
 
     return (
       <React.Fragment>
@@ -138,7 +140,7 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
             })}
           </TextList>
           {details['provider'] != 'azure' && (
-            <Button component="a" href={details['selflink']} target="_blank" rel="noreferrer" variant="danger">
+            <Button component="a" href={buttonLink} target="_blank" rel="noreferrer" variant="danger">
               Launch now
             </Button>
           )}
