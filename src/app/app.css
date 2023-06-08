@@ -14,3 +14,13 @@ html, body, #root {
     color: white;
   }
 }
+
+.footer-section {
+  background-color: black;
+  .footer-text {
+    color: white;
+  }
+  .footer-link {
+    color: #2B9AF3;
+  }
+}

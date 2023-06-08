@@ -1,25 +1,34 @@
 import {
-  Button,
   PageSection,
-  Bullseye,
   Text,
-  TextVariants,
-  TextContent,
-  Grid,
-  GridItem,
-  Masthead,
-  MastheadContent
+  Flex,
+  FlexItem,
 } from '@patternfly/react-core'
-import Emoji from './Emoji'
-import { Link } from 'react-router-dom'
+import logo from '@app/bgimages/Logo-Red_Hat-Supported_By-A-Reverse-RGB.svg'
 
 const Footer = () => {
   return (
-    <Masthead>
-      <MastheadContent>
-        This is going to be the footer
-      </MastheadContent>
-    </Masthead>
+    <PageSection
+      className='footer-section'
+      stickyOnBreakpoint={{ default: 'bottom' }}>
+      <Flex>
+        <FlexItem>
+          <img src={logo} style={{ height: 25 }} />
+        </FlexItem>
+        <FlexItem align={{ default: 'alignRight' }}>
+          <Text className='footer-text'>
+            <a
+              className='footer-link'
+              href='mailto: contact@imagedirectory.cloud'>Contact us</a>
+            &nbsp; | <a
+              className='footer-link'
+              target='_blank'
+              href='https://github.com/redhatcloudx'>Fork us on Github</a>
+            &nbsp; | Disclaimer: This is an experimental project by Red Hat.
+          </Text>
+        </FlexItem>
+      </Flex>
+    </PageSection>
   )
 }
 
