@@ -99,11 +99,10 @@ export default class DetailsView extends React.Component<IImageModalProps, IImag
         break;
 
       case 'google':
-        const image_path = details['selflink'].split('projects')[1];
         cliCommand = `gcloud beta compute instances create <MachineName> \\
         --machine-typei=e2-medium \\
         --subnet=default \\
-        --image="https://www.googleapis.com/compute/v1/projects${image_path}" \\
+        --image="${details['imageId']}" \\
         --boot-disk-device-name=<MachineName> \\
         --project <ProjectName>`;
         shellUrl = 'https://shell.cloud.google.com/?show=terminal';
