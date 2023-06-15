@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { SearchInput, Title, Toolbar, ToolbarContent, ToolbarItem } from '@patternfly/react-core';
+import { SearchInput, Title, Toolbar, ToolbarContent, ToolbarItem, Pagination } from '@patternfly/react-core';
 import { Table, Thead, Tr, Th, ThProps, Tbody, Td } from '@patternfly/react-table';
-
+import { fetch } from 'cross-fetch'
 interface ImageData {
   name: string;
   version: string;
@@ -17,8 +17,10 @@ interface ImageData {
 export const TableBasic: React.FunctionComponent = () => {
   const [search, setSearch] = React.useState('');
   const [imageData, setImageData] = React.useState([]);
-  const [activeSortIndex, setActiveSortIndex] = React.useState<number | null>(null);
-  const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | null>(null);
+  const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
+  const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
+  const [page, setPage] = React.useState(1);
+  const [perPage, setPerPage] = React.useState(20);
 
   useEffect(() => {
     loadImageData()
@@ -36,6 +38,7 @@ export const TableBasic: React.FunctionComponent = () => {
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
+    setPage(1);
   };
 
   const getSortParams = (columnIndex: number): ThProps['sort'] => ({
@@ -55,9 +58,28 @@ export const TableBasic: React.FunctionComponent = () => {
     return [name, provider, region, arch, date];
   };
 
-  let sortedImageData = imageData;
-  if (activeSortIndex !== null) {
-    sortedImageData = imageData.sort((a, b) => {
+  const onSetPage = (_event: React.MouseEvent | React.KeyboardEvent | MouseEvent, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const onPerPageSelect = (
+    _event: React.MouseEvent | React.KeyboardEvent | MouseEvent,
+    newPerPage: number,
+    newPage: number
+  ) => {
+    setPerPage(newPerPage);
+    setPage(newPage);
+  };
+
+  const searchedImageData = imageData.filter((item: ImageData) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const paginatedImageData = searchedImageData.slice((page - 1) * perPage, page * perPage)
+
+  let sortedImageData = paginatedImageData;
+  if (activeSortIndex !== undefined) {
+    sortedImageData = paginatedImageData.sort((a, b) => {
       const aValue = getSortableRowValues(a)[activeSortIndex];
       const bValue = getSortableRowValues(b)[activeSortIndex];
       if (typeof aValue === 'number') {
@@ -75,21 +97,29 @@ export const TableBasic: React.FunctionComponent = () => {
       }
     });
   }
-
-  const filteredImageData = sortedImageData.filter((item: ImageData) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
     <React.Fragment>
       <Title headingLevel='h1'>Browse Images</Title>
-      <Toolbar id="toolbar-items">
+      <Toolbar id="toolbar-top">
         <ToolbarContent>
           <ToolbarItem variant="search-filter">
             <SearchInput
               onChange={handleSearch}
               id='search'
               placeholder='Search by name'
+            />
+          </ToolbarItem>
+          <ToolbarItem alignment={{
+            default: 'alignRight'
+          }}>
+            <Pagination
+              perPageComponent="button"
+              itemCount={searchedImageData.length}
+              perPage={perPage}
+              page={page}
+              onSetPage={onSetPage}
+              onPerPageSelect={onPerPageSelect}
+              isCompact
             />
           </ToolbarItem>
         </ToolbarContent>
@@ -109,7 +139,7 @@ export const TableBasic: React.FunctionComponent = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {filteredImageData.map((image: ImageData) => (
+          {sortedImageData.map((image: ImageData) => (
             <Tr key={image.name}>
               <Td dataLabel={'Name'}>{image.name}</Td>
               <Td dataLabel={'Provider'}>{image.provider}</Td>
@@ -121,6 +151,24 @@ export const TableBasic: React.FunctionComponent = () => {
           ))}
         </Tbody>
       </Table>
+      <Toolbar id="toolbar-bottom">
+        <ToolbarContent>
+          <ToolbarItem alignment={{
+            default: 'alignRight'
+          }}>
+            <Pagination
+              perPageComponent="button"
+              itemCount={searchedImageData.length}
+              perPage={perPage}
+              page={page}
+              onSetPage={onSetPage}
+              onPerPageSelect={onPerPageSelect}
+              isCompact
+            />
+          </ToolbarItem>
+        </ToolbarContent>
+      </Toolbar>
+
     </React.Fragment>
   );
 };
