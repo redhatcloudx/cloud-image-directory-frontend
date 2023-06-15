@@ -55,7 +55,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           # TODO: REPLACE WITH ACTUAL ROLE
-          role-to-assume: arn:aws:iam::426579533370:role/github_actions_cloud_image_directory_frontend_staging
+          role-to-assume: arn:aws:iam::426579533370:role/github_actions_cloud_image_directory_staging
           role-duration-seconds: 1800
           aws-region: us-east-2
 
