@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { SearchInput, Title, Toolbar, ToolbarContent, ToolbarItem, Pagination } from '@patternfly/react-core';
 import { Table, Thead, Tr, Th, ThProps, Tbody, Td } from '@patternfly/react-table';
 import { fetch } from 'cross-fetch'
+
+
 interface ImageData {
   name: string;
   version: string;
@@ -146,7 +148,7 @@ export const TableBasic: React.FunctionComponent = () => {
               <Td dataLabel={'Region'}>{image.region}</Td>
               <Td dataLabel={'Architecture'}>{image.arch}</Td>
               <Td dataLabel={'Date'}><p>{new Date(image.date).toDateString()}</p></Td>
-              <Td dataLabel={'Action'}>{<a href=''>Launch</a>}</Td>
+              <Td dataLabel={'Action'}>{<a href=''>Launch now</a>}</Td>
             </Tr>
           ))}
         </Tbody>
