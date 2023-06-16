@@ -2,25 +2,20 @@ html, body, #root {
   height: 100%;
 }
 
-.header-section {
-  > .header-text {
-    color: white;
-  }
-}
-
 .hero-section {
   background-color: black;
-  > .hero-text {
-    color: white;
-  }
+}
+
+.hero-text {
+  color: white;
 }
 
 .footer-section {
   background-color: black;
-  .footer-text {
-    color: white;
-  }
-  .footer-link {
-    color: #2B9AF3;
-  }
+}
+.footer-text {
+  color: white;
+}
+.footer-link {
+  color: #2B9AF3;
 }
