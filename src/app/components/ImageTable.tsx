@@ -23,6 +23,13 @@ export const TableBasic: React.FunctionComponent = () => {
   const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
   const [page, setPage] = React.useState(1);
   const [perPage, setPerPage] = React.useState(20);
+  const columnNames = {
+    name: 'Name',
+    provider: 'Provider',
+    region: 'Region',
+    arch: 'Architecture',
+    date: 'Date'
+  }
 
   useEffect(() => {
     loadImageData()
@@ -132,23 +139,23 @@ export const TableBasic: React.FunctionComponent = () => {
       >
         <Thead>
           <Tr>
-            <Th sort={getSortParams(0)}>{'Name'}</Th>
-            <Th sort={getSortParams(1)}>{'Provider'}</Th>
-            <Th sort={getSortParams(2)}>{'Region'}</Th>
-            <Th sort={getSortParams(3)}>{'Architecture'}</Th>
-            <Th sort={getSortParams(4)}>{'Date'}</Th>
+            <Th sort={getSortParams(0)}>{columnNames.name}</Th>
+            <Th sort={getSortParams(1)}>{columnNames.provider}</Th>
+            <Th sort={getSortParams(2)}>{columnNames.region}</Th>
+            <Th sort={getSortParams(3)}>{columnNames.arch}</Th>
+            <Th sort={getSortParams(4)}>{columnNames.date}</Th>
             <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
           {sortedImageData.map((image: ImageData) => (
             <Tr key={image.name}>
-              <Td dataLabel={'Name'}>{image.name}</Td>
-              <Td dataLabel={'Provider'}>{image.provider}</Td>
-              <Td dataLabel={'Region'}>{image.region}</Td>
-              <Td dataLabel={'Architecture'}>{image.arch}</Td>
-              <Td dataLabel={'Date'}><p>{new Date(image.date).toDateString()}</p></Td>
-              <Td dataLabel={'Action'}>{<a href=''>Launch now</a>}</Td>
+              <Td dataLabel={columnNames.name}>{image.name}</Td>
+              <Td dataLabel={columnNames.provider}>{image.provider}</Td>
+              <Td dataLabel={columnNames.region}>{image.region}</Td>
+              <Td dataLabel={columnNames.arch}>{image.arch}</Td>
+              <Td dataLabel={columnNames.date}><p>{new Date(image.date).toDateString()}</p></Td>
+              <Td>{<a href=''>Launch now</a>}</Td>
             </Tr>
           ))}
         </Tbody>
