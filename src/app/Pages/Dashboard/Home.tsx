@@ -11,7 +11,7 @@ import {
 } from '@app/utils/useDocumentTitle'
 import Footer from '@app/components/Footer'
 import logo from '@app/bgimages/ohc-hero.png'
-import { TableBasic } from '@app/components/ImageTable'
+import { ImageTable } from '@app/components/ImageTable'
 
 const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
 
@@ -38,7 +38,7 @@ const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
         </Flex>
       </PageSection>
       <PageSection variant={PageSectionVariants.light}>
-        <TableBasic />
+        <ImageTable />
       </PageSection>
       <Footer />
     </div>

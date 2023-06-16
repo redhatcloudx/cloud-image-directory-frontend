@@ -3,7 +3,6 @@ import { SearchInput, Title, Toolbar, ToolbarContent, ToolbarItem, Pagination } 
 import { Table, Thead, Tr, Th, ThProps, Tbody, Td } from '@patternfly/react-table';
 import { fetch } from 'cross-fetch'
 
-
 interface ImageData {
   name: string;
   version: string;
@@ -16,7 +15,7 @@ interface ImageData {
   virt: string;
 };
 
-export const TableBasic: React.FunctionComponent = () => {
+export const ImageTable: React.FunctionComponent = () => {
   const [search, setSearch] = React.useState('');
   const [imageData, setImageData] = React.useState([]);
   const [activeSortIndex, setActiveSortIndex] = React.useState<number | undefined>(undefined);
