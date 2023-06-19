@@ -27,7 +27,7 @@ export const ImageTable: React.FunctionComponent = () => {
     provider: 'Provider',
     region: 'Region',
     arch: 'Architecture',
-    date: 'Date'
+    date: 'Release Date'
   }
 
   useEffect(() => {
