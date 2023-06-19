@@ -180,4 +180,3 @@ export const ImageTable: React.FunctionComponent = () => {
     </React.Fragment>
   );
 };
-
