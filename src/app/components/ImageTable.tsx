@@ -7,18 +7,13 @@ import {
   ToolbarItem,
   Pagination,
   Drawer,
-  DrawerPanelContent,
   DrawerContent,
   DrawerContentBody,
-  DrawerHead,
-  DrawerActions,
-  DrawerCloseButton,
   Button
 } from '@patternfly/react-core';
 import { Table, Thead, Tr, Th, ThProps, Tbody, Td } from '@patternfly/react-table';
 import { fetch } from 'cross-fetch'
 import { DetailsDrawer } from './DetailsDrawer';
-import { MouseEventHandler } from 'react';
 interface ImageData {
   name: string;
   version: string;
@@ -46,7 +41,7 @@ export const ImageTable: React.FunctionComponent = () => {
     drawerRef.current && drawerRef.current.focus();
   };
 
-  const onDrawerOpenClick = (details) => {
+  const onDrawerOpenClick = (details: object) => {
     setIsExpanded(true);
     setSelectedImage(details)
   };
@@ -78,6 +73,7 @@ export const ImageTable: React.FunctionComponent = () => {
   }
 
   const handleSearch = (event) => {
+    setIsExpanded(false);
     setSearch(event.target.value);
     setPage(1);
   };
@@ -100,6 +96,7 @@ export const ImageTable: React.FunctionComponent = () => {
   };
 
   const onSetPage = (_event: React.MouseEvent | React.KeyboardEvent | MouseEvent, newPage: number) => {
+    setIsExpanded(false);
     setPage(newPage);
   };
 
