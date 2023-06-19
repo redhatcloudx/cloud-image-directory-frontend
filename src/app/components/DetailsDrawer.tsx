@@ -47,4 +47,3 @@ export const DetailsDrawer: React.FunctionComponent<{
     </React.Fragment>
   );
 };
-
