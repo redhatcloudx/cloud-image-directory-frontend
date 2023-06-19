@@ -4,6 +4,11 @@ import {
   DrawerHead,
   DrawerActions,
   DrawerCloseButton,
+  Title,
+  Flex,
+  FlexItem,
+  Stack,
+  StackItem
 } from '@patternfly/react-core';
 import { MouseEventHandler } from 'react';
 import { DetailsView } from './DetailsView';
@@ -16,14 +21,27 @@ export const DetailsDrawer: React.FunctionComponent<{
 }> = ({ onCloseClick, isExpanded, drawerRef, details }) => {
   return (
     <React.Fragment>
-      <DrawerPanelContent>
+      <DrawerPanelContent minSize='33%'>
         <DrawerHead>
-          <span tabIndex={isExpanded ? 0 : -1} ref={drawerRef}>
-            <DetailsView details={details} />
-          </span>
-          <DrawerActions>
-            <DrawerCloseButton onClick={onCloseClick} />
-          </DrawerActions>
+          <Stack hasGutter>
+            <StackItem>
+              <Flex alignItems={{
+                default: 'alignItemsCenter'
+              }}>
+                <FlexItem>
+                  <Title headingLevel='h1'>
+                    {details['name']}
+                  </Title>
+                </FlexItem>
+                <FlexItem align={{ default: 'alignRight' }}>
+                  <DrawerCloseButton onClick={onCloseClick} />
+                </FlexItem>
+              </Flex>
+            </StackItem>
+            <StackItem tabIndex={isExpanded ? 0 : -1} ref={drawerRef}>
+              <DetailsView details={details} />
+            </StackItem>
+          </Stack>
         </DrawerHead>
       </DrawerPanelContent>
     </React.Fragment>

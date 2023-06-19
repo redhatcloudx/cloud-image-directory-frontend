@@ -5,6 +5,10 @@ import {
   CodeBlock,
   CodeBlockAction,
   CodeBlockCode,
+  DescriptionList,
+  DescriptionListGroup,
+  DescriptionListTerm,
+  DescriptionListDescription,
   TextContent,
   TextList,
   TextListItem,
@@ -12,7 +16,9 @@ import {
   Tab,
   TabTitleText,
   Truncate,
-  Title
+  Title,
+  Stack,
+  StackItem
 } from '@patternfly/react-core';
 import { PlayIcon } from '@patternfly/react-icons';
 
@@ -93,12 +99,12 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
       break;
 
     case 'google':
-      cliCommand = 'gcloud beta compute instances create <MachineName>' +
-        '--machine-typei=e2-medium' +
-        '--subnet=default' +
-        `---image="${details['imageId']}"` +
-        '---boot-disk-device-name=<MachineName>' +
-        '---project <ProjectName>';
+      cliCommand = `gcloud beta compute instances create <MachineName> \\
+        --machine-typei=e2-medium \\
+        --subnet=default \\
+        ---image="${details['imageId']}" \\
+        ---boot-disk-device-name=<MachineName> \\
+        ---project <ProjectName>`;
       shellUrl = 'https://shell.cloud.google.com/?show=terminal';
       displayItems.push({
         Title: 'Image ID',
@@ -121,76 +127,92 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
         role="region"
       >
         <Tab eventKey={0} title={<TabTitleText>Image Details</TabTitleText>} aria-label="Show RHEL cloud image details">
-          <Title headingLevel='h1'>
-            {details['name']}
-          </Title>
-          <TextContent id="test2" className="pf-u-py-xl">
-            <TextList component="dl">
-              {displayItems.map((item, index) => {
-                return (
-                  <div key={`menu-details-${item.Title}-${index}`}>
-                    <TextListItem key={`menu-title-${item.Title}-${index}`} component="dt">
-                      {item.Title}
-                    </TextListItem>
-                    <TextListItem key={`menu-data-${item.Title}-${index}`} component="dd">
-                      <Truncate
-                        content={item.Data}
-                        position={'start'}
-                      />
-                    </TextListItem>
-                  </div>
-                );
-              })}
-            </TextList>
-            {details['provider'] != 'azure' && (
-              <Button component="a" href={details['selflink']} target="_blank" rel="noreferrer" variant="danger">
-                Launch now
-              </Button>
-            )}
-          </TextContent>
+          <Stack hasGutter>
+            <StackItem>
+              <Title headingLevel='h3'>
+                {'Image Details'}
+              </Title>
+            </StackItem>
+            <StackItem>
+              <DescriptionList columnModifier={{
+                sm: '1Col',
+                lg: '2Col',
+                xl: '3Col'
+              }}>
+                {displayItems.map((item, index) => {
+                  return (
+
+                    <DescriptionListGroup key={`description-list-group-${item.Title}-${index}`}>
+                      <DescriptionListTerm key={`description-list-term-${item.Title}-${index}`}>{item.Title}</DescriptionListTerm>
+                      <DescriptionListDescription>{item.Data}</DescriptionListDescription>
+                    </DescriptionListGroup>
+                  );
+                })}
+              </DescriptionList>
+            </StackItem>
+            <StackItem>
+              {details['provider'] != 'azure' && (
+                <Button component="a" href={details['selflink']} target="_blank" rel="noreferrer" style={{
+                  color: 'pf-color-blue-400'
+                }} isLarge>
+                  Launch now
+                </Button>
+              )}
+            </StackItem>
+          </Stack>
         </Tab>
-        <Tab eventKey={1} title={<TabTitleText>Launch from CLI</TabTitleText>} aria-label="Show RHEL cloud image details">
-          <CodeBlock
-            actions={
-              <>
-                <CodeBlockAction>
-                  <ClipboardCopyButton
-                    id="basic-copy-button"
-                    textId="code-content"
-                    aria-label="Copy to clipboard"
-                    onClick={() => {
-                      navigator.clipboard.writeText(cliCommand);
-                      setCopied(true)
-                    }}
-                    exitDelay={600}
-                    maxWidth="110px"
-                    variant="plain"
-                  >
-                    {copied ? 'Successfully copied to clipboard!' : 'Copy to clipboard'}
-                  </ClipboardCopyButton>
-                </CodeBlockAction>
-                <CodeBlockAction>
-                  <Button
-                    variant="plain"
-                    aria-label="Play icon"
-                    component="a"
-                    href={shellUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <PlayIcon />
-                  </Button>
-                </CodeBlockAction>
-              </>
-            }
-          >
-            <CodeBlockCode id="code-content">
-              <TextContent>{cliCommand}</TextContent>
-            </CodeBlockCode>
-          </CodeBlock>
+
+        <Tab eventKey={1} title={<TabTitleText>Launch from CLI</TabTitleText>} aria-label={`Run RHEL cloud image on ${details['provider']}`}>
+          <Stack hasGutter>
+            <StackItem>
+              <Title headingLevel='h3'>
+                {'Example CLI Command'}
+              </Title>
+            </StackItem>
+            <StackItem>
+              <CodeBlock
+                actions={
+                  <>
+                    <CodeBlockAction>
+                      <ClipboardCopyButton
+                        id="basic-copy-button"
+                        textId="code-content"
+                        aria-label="Copy to clipboard"
+                        onClick={() => {
+                          navigator.clipboard.writeText(cliCommand);
+                          setCopied(true)
+                        }}
+                        exitDelay={600}
+                        maxWidth="110px"
+                        variant="plain"
+                      >
+                        {copied ? 'Successfully copied to clipboard!' : 'Copy to clipboard'}
+                      </ClipboardCopyButton>
+                    </CodeBlockAction>
+                    <CodeBlockAction>
+                      <Button
+                        variant="plain"
+                        aria-label="Play icon"
+                        component="a"
+                        href={shellUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <PlayIcon />
+                      </Button>
+                    </CodeBlockAction>
+                  </>
+                }
+              >
+                <CodeBlockCode id="code-content">
+                  <TextContent>{cliCommand}</TextContent>
+                </CodeBlockCode>
+              </CodeBlock>
+            </StackItem>
+          </Stack>
         </Tab>
       </Tabs>
-    </React.Fragment>
+    </React.Fragment >
   );
 
 }
