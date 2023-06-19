@@ -1,8 +1,24 @@
 import React, { useEffect } from 'react';
-import { SearchInput, Title, Toolbar, ToolbarContent, ToolbarItem, Pagination } from '@patternfly/react-core';
+import {
+  SearchInput,
+  Title,
+  Toolbar,
+  ToolbarContent,
+  ToolbarItem,
+  Pagination,
+  Drawer,
+  DrawerPanelContent,
+  DrawerContent,
+  DrawerContentBody,
+  DrawerHead,
+  DrawerActions,
+  DrawerCloseButton,
+  Button
+} from '@patternfly/react-core';
 import { Table, Thead, Tr, Th, ThProps, Tbody, Td } from '@patternfly/react-table';
 import { fetch } from 'cross-fetch'
-
+import { DetailsDrawer } from './DetailsDrawer';
+import { MouseEventHandler } from 'react';
 interface ImageData {
   name: string;
   version: string;
@@ -22,6 +38,23 @@ export const ImageTable: React.FunctionComponent = () => {
   const [activeSortDirection, setActiveSortDirection] = React.useState<'asc' | 'desc' | undefined>(undefined);
   const [page, setPage] = React.useState(1);
   const [perPage, setPerPage] = React.useState(20);
+  const [isDrawerExpanded, setIsExpanded] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState({});
+  const drawerRef = React.useRef<HTMLDivElement>();
+
+  const onDrawerExpand = () => {
+    drawerRef.current && drawerRef.current.focus();
+  };
+
+  const onDrawerOpenClick = (details) => {
+    setIsExpanded(true);
+    setSelectedImage(details)
+  };
+
+  const onDrawerCloseClick = () => {
+    setIsExpanded(false);
+  };
+
   const columnNames = {
     name: 'Name',
     provider: 'Provider',
@@ -105,6 +138,15 @@ export const ImageTable: React.FunctionComponent = () => {
       }
     });
   }
+
+  const panelContent = (
+    <DetailsDrawer
+      onCloseClick={onDrawerCloseClick}
+      drawerRef={drawerRef}
+      isExpanded={isDrawerExpanded}
+      details={selectedImage} />
+  );
+
   return (
     <React.Fragment>
       <Title headingLevel='h1'>Browse Images</Title>
@@ -132,33 +174,50 @@ export const ImageTable: React.FunctionComponent = () => {
           </ToolbarItem>
         </ToolbarContent>
       </Toolbar>
-      <Table
-        aria-label="RHEL Cloud Images"
-        variant={'compact'}
-      >
-        <Thead>
-          <Tr>
-            <Th sort={getSortParams(0)}>{columnNames.name}</Th>
-            <Th sort={getSortParams(1)}>{columnNames.provider}</Th>
-            <Th sort={getSortParams(2)}>{columnNames.region}</Th>
-            <Th sort={getSortParams(3)}>{columnNames.arch}</Th>
-            <Th sort={getSortParams(4)}>{columnNames.date}</Th>
-            <Th></Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {sortedImageData.map((image: ImageData) => (
-            <Tr key={image.name}>
-              <Td dataLabel={columnNames.name}>{image.name}</Td>
-              <Td dataLabel={columnNames.provider}>{image.provider}</Td>
-              <Td dataLabel={columnNames.region}>{image.region}</Td>
-              <Td dataLabel={columnNames.arch}>{image.arch}</Td>
-              <Td dataLabel={columnNames.date}><p>{new Date(image.date).toDateString()}</p></Td>
-              <Td>{<a href=''>Launch now</a>}</Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
+
+      <Drawer isExpanded={isDrawerExpanded} position="right" onExpand={onDrawerExpand}>
+        <DrawerContent panelContent={panelContent}>
+          <DrawerContentBody>
+
+            <Table
+              aria-label="RHEL Cloud Images"
+              variant={'compact'}
+            >
+              <Thead>
+                <Tr>
+                  <Th sort={getSortParams(0)}>{columnNames.name}</Th>
+                  <Th sort={getSortParams(1)}>{columnNames.provider}</Th>
+                  <Th sort={getSortParams(2)}>{columnNames.region}</Th>
+                  <Th sort={getSortParams(3)}>{columnNames.arch}</Th>
+                  <Th sort={getSortParams(4)}>{columnNames.date}</Th>
+                  <Th></Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {sortedImageData.map((image: ImageData) => (
+                  <Tr key={image.name}>
+                    <Td dataLabel={columnNames.name}>{image.name}</Td>
+                    <Td dataLabel={columnNames.provider}>{image.provider}</Td>
+                    <Td dataLabel={columnNames.region}>{image.region}</Td>
+                    <Td dataLabel={columnNames.arch}>{image.arch}</Td>
+                    <Td dataLabel={columnNames.date}><p>{new Date(image.date).toDateString()}</p></Td>
+                    <Td>
+                      <Button
+                        aria-expanded={isDrawerExpanded}
+                        onClick={e => onDrawerOpenClick(image)}
+                        variant='link'
+                        isInline>
+                        Launch now
+                      </Button>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </DrawerContentBody>
+        </DrawerContent>
+      </Drawer>
+
       <Toolbar id="toolbar-bottom">
         <ToolbarContent>
           <ToolbarItem alignment={{
