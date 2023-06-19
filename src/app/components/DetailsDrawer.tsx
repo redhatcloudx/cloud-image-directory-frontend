@@ -6,7 +6,7 @@ import {
   DrawerCloseButton,
 } from '@patternfly/react-core';
 import { MouseEventHandler } from 'react';
-import DetailsView from './DetailsView';
+import { DetailsView } from './DetailsView';
 
 export const DetailsDrawer: React.FunctionComponent<{
   onCloseClick: MouseEventHandler,
