@@ -10,12 +10,9 @@ import {
   DescriptionListTerm,
   DescriptionListDescription,
   TextContent,
-  TextList,
-  TextListItem,
   Tabs,
   Tab,
   TabTitleText,
-  Truncate,
   Title,
   Stack,
   StackItem
@@ -32,6 +29,28 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
   ) => {
     setActiveTabKey(tabIndex);
   };
+
+
+  const copyButton = (data: string) => {
+    return (
+      <React.Fragment>
+        <ClipboardCopyButton
+          id="basic-copy-button"
+          textId="code-content"
+          aria-label="Copy to clipboard"
+          onClick={() => {
+            navigator.clipboard.writeText(data);
+            setCopied(true)
+          }}
+          exitDelay={600}
+          maxWidth="110px"
+          variant="plain"
+        >
+          {copied ? 'Successfully copied to clipboard!' : 'Copy to clipboard'}
+        </ClipboardCopyButton>
+      </React.Fragment>
+    )
+  }
 
   let cliCommand;
   let shellUrl;
@@ -71,7 +90,7 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
         },
         {
           Title: 'Image ID',
-          Data: details['imageId'],
+          Data: <span>{details['imageId']} {copyButton(details['imageId'])}</span>,
         }
       );
       break;
@@ -85,7 +104,7 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
       displayItems.push(
         {
           Title: 'Urn',
-          Data: details['imageId'],
+          Data: <span>{details['imageId']} {copyButton(details['imageId'])}</span>,
         },
         {
           Title: 'Offer',
@@ -108,7 +127,7 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
       shellUrl = 'https://shell.cloud.google.com/?show=terminal';
       displayItems.push({
         Title: 'Image ID',
-        Data: details['imageId'],
+        Data: <span>{details['imageId']} {copyButton(details['imageId'])}</span>,
       });
       break;
 
@@ -137,11 +156,10 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
               <DescriptionList columnModifier={{
                 sm: '1Col',
                 lg: '2Col',
-                xl: '3Col'
+                xl: '2Col'
               }}>
                 {displayItems.map((item, index) => {
                   return (
-
                     <DescriptionListGroup key={`description-list-group-${item.Title}-${index}`}>
                       <DescriptionListTerm key={`description-list-term-${item.Title}-${index}`}>{item.Title}</DescriptionListTerm>
                       <DescriptionListDescription>{item.Data}</DescriptionListDescription>
@@ -174,20 +192,7 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
                 actions={
                   <>
                     <CodeBlockAction>
-                      <ClipboardCopyButton
-                        id="basic-copy-button"
-                        textId="code-content"
-                        aria-label="Copy to clipboard"
-                        onClick={() => {
-                          navigator.clipboard.writeText(cliCommand);
-                          setCopied(true)
-                        }}
-                        exitDelay={600}
-                        maxWidth="110px"
-                        variant="plain"
-                      >
-                        {copied ? 'Successfully copied to clipboard!' : 'Copy to clipboard'}
-                      </ClipboardCopyButton>
+                      {copyButton(cliCommand)}
                     </CodeBlockAction>
                     <CodeBlockAction>
                       <Button
