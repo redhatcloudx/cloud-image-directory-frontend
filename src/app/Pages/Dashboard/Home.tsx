@@ -6,6 +6,7 @@ import {
   Flex,
   FlexItem
 } from '@patternfly/react-core'
+import { Helmet } from 'react-helmet'
 import {
   useDocumentTitle
 } from '@app/utils/useDocumentTitle'
@@ -18,6 +19,14 @@ const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
   useDocumentTitle(title)
   return (
     <div>
+      <Helmet>
+        <meta
+          name="description"
+          content="The Cloud Image Directory is a tool that makes finding and running 
+          Red Hat Enterprise Linux (RHEL) cloud images on AWS, Azure and Google Cloud 
+          platforms easy." />
+        <link rel="canonical" href="https://imagedirectory.cloud/" />
+      </Helmet>
       <PageSection className='hero-section'>
         <Flex className='hero-text' alignItems={{
           default: 'alignItemsCenter'
