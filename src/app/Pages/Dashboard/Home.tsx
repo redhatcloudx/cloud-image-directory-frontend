@@ -42,7 +42,7 @@ const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
           <FlexItem
             spacer={{ default: 'spacer2xl' }}
             align={{ default: 'alignRight' }}>
-            <img src={logo} style={{ height: 200 }} />
+            <img alt={'Red Hat Enterprise Linux for the Open Hybrid Cloud'} src={logo} style={{ height: 200 }} />
           </FlexItem>
         </Flex>
       </PageSection>
