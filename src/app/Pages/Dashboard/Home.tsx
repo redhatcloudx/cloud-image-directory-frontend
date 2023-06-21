@@ -22,8 +22,8 @@ const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
       <Helmet>
         <meta
           name="description"
-          content="The Cloud Image Directory is a tool that makes finding and running 
-          Red Hat Enterprise Linux (RHEL) cloud images on AWS, Azure and Google Cloud 
+          content="The Cloud Image Directory is a tool that makes finding and running
+          Red Hat Enterprise Linux (RHEL) cloud images on AWS, Azure and Google Cloud
           platforms easy." />
         <link rel="canonical" href="https://imagedirectory.cloud/" />
       </Helmet>
