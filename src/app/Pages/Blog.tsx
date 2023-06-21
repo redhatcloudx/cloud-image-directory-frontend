@@ -16,8 +16,8 @@ const Blog: React.FunctionComponent<{ title: string }> = ({ title }) => {
       <Helmet>
         <meta
           name="description"
-          content="The Cloud Image Directory is an experimental project by Red Hat 
-          to provide cloud developers, system engineers and business professionals 
+          content="The Cloud Image Directory is an experimental project by Red Hat
+          to provide cloud developers, system engineers and business professionals
           with an easy to use tool to find and run Red Hat Enterprise Linux on AWS,
           Azure or Google Cloud." />
         <link rel="canonical" href="https://imagedirectory.cloud/about" />
