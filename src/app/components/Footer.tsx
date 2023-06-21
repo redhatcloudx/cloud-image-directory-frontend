@@ -13,7 +13,7 @@ const Footer = () => {
       stickyOnBreakpoint={{ default: 'bottom' }}>
       <Flex>
         <FlexItem>
-          <img src={logo} style={{ height: 25 }} />
+          <img alt='This project is supported by Red Hat' src={logo} style={{ height: 25 }} />
         </FlexItem>
         <FlexItem align={{ default: 'alignRight' }}>
           <Text className='footer-text'>
