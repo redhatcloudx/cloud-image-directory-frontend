@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Card,
+  CardHeader,
   CardTitle,
   CardBody,
   CardFooter,
@@ -23,20 +24,7 @@ interface IProviderCardState {
   src: string
 }
 
-const loadBGImage = (name) => {
-  switch ( name ) {
-    case 'aws':
-      return aws_logo
-    case 'azure':
-      return azure_logo
-    case 'google':
-      return google_logo
-    case 'redhat':
-      return redhat_logo
-    default:
-      return redhat_logo
- }
-}
+
 export default class ProviderCard extends React.Component<IProviderCardProps, IProviderCardState> {
   render () {
     const {
@@ -46,28 +34,7 @@ export default class ProviderCard extends React.Component<IProviderCardProps, IP
     } = this.props
 
     return (
-      <Card
-        // isSelectable={true}
-        // isRounded={true}
-        style={{
-          backgroundImage: `url(${loadBGImage(name)})`,
-          backgroundPositionY: '40px',
-          backgroundPositionX: 'center',
-          // backgroundColor: '#232f3e',
-          backgroundSize: 160,
-          backgroundRepeat: 'no-repeat',
-          height: 280,
-          width: 200,
-        }}
-        >
-          <CardTitle></CardTitle>
-          <CardBody></CardBody>
-          <CardFooter>
-            <Bullseye>
-              <Button component="a" href={url} target="_blank" rel="noreferrer" variant="danger">{text}</Button>
-            </Bullseye>
-          </CardFooter>
-      </Card>
+
     )
   }
 }

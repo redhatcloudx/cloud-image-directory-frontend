@@ -4,17 +4,20 @@ import {
   PageSection,
   Title,
   Flex,
-  FlexItem
+  FlexItem, Grid, GridItem, CardHeader
 } from '@patternfly/react-core'
-import { Helmet } from 'react-helmet'
+import {Helmet} from 'react-helmet'
 import {
   useDocumentTitle
 } from '@app/utils/useDocumentTitle'
 import Footer from '@app/components/Footer'
 import logo from '@app/bgimages/ohc-hero.png'
-import { ImageTable } from '@app/components/ImageTable'
+import {ImageTable} from '@app/components/ImageTable'
+import {ExternalLinksCard} from "@app/components/ExternalLinksCard";
+import {InternalLinksCard} from "@app/components/InternalLinkCard";
+import redhat_logo from "@app/bgimages/redhat_clear.png";
 
-const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
+const Home: React.FunctionComponent<{ title: string }> = ({title}) => {
 
   useDocumentTitle(title)
   return (
@@ -24,8 +27,8 @@ const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
           name="description"
           content="The Cloud Image Directory is a tool that makes finding and running
           Red Hat Enterprise Linux (RHEL) cloud images on AWS, Azure and Google Cloud
-          platforms easy." />
-        <link rel="canonical" href="https://imagedirectory.cloud/" />
+          platforms easy."/>
+        <link rel="canonical" href="https://imagedirectory.cloud/"/>
       </Helmet>
       <PageSection className='hero-section'>
         <Flex className='hero-text' alignItems={{
@@ -40,18 +43,25 @@ const Home: React.FunctionComponent<{ title: string }> = ({ title }) => {
             </Title>
           </FlexItem>
           <FlexItem
-            spacer={{ default: 'spacer2xl' }}
-            align={{ default: 'alignRight' }}>
-            <img alt={'Red Hat Enterprise Linux for the Open Hybrid Cloud'} src={logo} style={{ height: 200 }} />
+            spacer={{default: 'spacer2xl'}}
+            align={{default: 'alignRight'}}>
+            <img alt={'Red Hat Enterprise Linux for the Open Hybrid Cloud'} src={logo}
+                 style={{height: 200}}/>
           </FlexItem>
         </Flex>
       </PageSection>
       <PageSection variant={PageSectionVariants.light}>
-        <ImageTable />
+        <Flex /*alignItems={{ default: "alignItemsStretch"}}*/ /* display={{ default: 'inlineFlex' }}> */>
+            <InternalLinksCard/>
+            <ExternalLinksCard/>
+         </Flex>
       </PageSection>
-      <Footer />
+      {/*<PageSection variant={PageSectionVariants.light}>*/}
+      {/*  <ImageTable/>*/}
+      {/*</PageSection>*/}
+      <Footer/>
     </div>
   )
 }
 
-export { Home }
+export {Home}
