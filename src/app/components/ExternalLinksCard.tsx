@@ -61,43 +61,78 @@ const loadImage = (name) => {
 
 const ExternalLinksCard: React.FunctionComponent = () => {
   return (
-    <Flex flex={{ default: 'flex_3' }} justifyContent={{ default: 'justifyContentSpaceBetween' }}>
-      <Card>
-        <CardHeader>
-          <img
-            src={redhat_logo}
-            style={{
-              //   objectPosition: 'top left',
-              height: '2vw',
-              width: '2vw',
-              // margin: '7% 8%',
-            }}
-          />
-        </CardHeader>
-        <CardTitle>Get the latest Red Hat Enterprise Linux certified image for cloud deployment</CardTitle>
-        <Bullseye>
-          <CardBody>
-          Launch the latest RHEL certified cloud image through available cloud service provider marketplaces.
-          <Flex>
-            {
-              providerInfos.map(({name, text, url}, index) => (
-                <FlexItem key={`provider_card_${index}`}>
-                  {/*<ProviderCard name={name} text={text} url={url}/>*/}
-                  <Card>
-                  <CardBody style={{height: 280, width: 200}}><img src={loadImage(name)} />`</CardBody>
-                  <CardFooter >
-                    <Button component="a" href={url} target="_blank" rel="noreferrer" variant="link">{text}</Button>
-                  </CardFooter>
-                  </Card>
-                </FlexItem>
-              ))
-            }
+    <Flex direction={ {default: 'column'}}  flex={{ default: 'flex_3' }} justifyContent={{ default: 'justifyContentSpaceBetween' }}>
+      {/*<Card>*/}
+      {/*  <CardHeader>*/}
+      {/*    <img*/}
+      {/*      src={redhat_logo}*/}
+      {/*      style={{*/}
+      {/*        //   objectPosition: 'top left',*/}
+      {/*        height: '2vw',*/}
+      {/*        width: '2vw',*/}
+      {/*        // margin: '7% 8%',*/}
+      {/*      }}*/}
+      {/*    />*/}
+      {/*  </CardHeader>*/}
+      {/*  <CardTitle>Get the latest Red Hat Enterprise Linux certified image for cloud deployment</CardTitle>*/}
+      {/*  <Bullseye>*/}
+      {/*    <CardBody>*/}
+      {/*    Launch the latest RHEL certified cloud image through available cloud service provider marketplaces.*/}
+      {/*    <Flex>*/}
+      {/*      {*/}
+      {/*        providerInfos.map(({name, text, url}, index) => (*/}
+      {/*          <FlexItem key={`provider_card_${index}`}>*/}
+      {/*            /!*<ProviderCard name={name} text={text} url={url}/>*!/*/}
+      {/*            <Card>*/}
+      {/*            <CardBody style={{height: 280, width: 200}}><img src={loadImage(name)} />`</CardBody>*/}
+      {/*            <CardFooter >*/}
+      {/*              <Button component="a" href={url} target="_blank" rel="noreferrer" variant="link">{text}</Button>*/}
+      {/*            </CardFooter>*/}
+      {/*            </Card>*/}
+      {/*          </FlexItem>*/}
+      {/*        ))*/}
+      {/*      }*/}
 
-          </Flex>
-        </CardBody>
-      </Bullseye>
-      </Card>
-      </Flex>
+      {/*    </Flex>*/}
+      {/*  </CardBody>*/}
+      {/*</Bullseye>*/}
+      {/*</Card>*/}
+      {/*</Flex>*/}
+      <FlexItem>
+        <img
+          src={redhat_logo}
+          style={{
+            //   objectPosition: 'top left',
+            height: '2vw',
+            width: '2vw',
+            // margin: '7% 8%',
+          }}
+        />
+      </FlexItem>
+      <FlexItem>
+        <Title headingLevel='h1'>Get the latest Red Hat Enterprise Linux certified image for cloud deployment</Title>
+      </FlexItem>
+      <FlexItem>
+        <p>Launch the latest RHEL certified cloud image through available cloud service provider marketplaces.</p>
+      </FlexItem>
+      <Flex>
+      {
+        providerInfos.map(({name, text, url}, _) => (
+
+          <>
+            <FlexItem key={`provider_card_${name}`}>
+              <img style={{ height: 200, width: 200}} src={loadImage(name)} />
+              <Bullseye>
+                <Button component="a" href={url} target="_blank" rel="noreferrer" variant="link">
+                  {text}
+                </Button>
+              </Bullseye>
+            </FlexItem>
+          </>
+        ))
+      }
+    </Flex>
+    </Flex>
   )
 }
 

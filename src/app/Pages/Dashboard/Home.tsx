@@ -52,8 +52,9 @@ const Home: React.FunctionComponent<{ title: string }> = ({title}) => {
       </PageSection>
       <PageSection variant={PageSectionVariants.light}>
         <Flex /*alignItems={{ default: "alignItemsStretch"}}*/ /* display={{ default: 'inlineFlex' }}> */>
-            <InternalLinksCard/>
-            <ExternalLinksCard/>
+          {/*<div className="pf-u-box-shadow-sm"><InternalLinksCard/></div>*/}
+          <InternalLinksCard/>
+          <ExternalLinksCard/>
          </Flex>
       </PageSection>
       {/*<PageSection variant={PageSectionVariants.light}>*/}
