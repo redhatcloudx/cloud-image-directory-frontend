@@ -57,11 +57,9 @@ const InternalLinksCard: React.FunctionComponent = () => {
               // margin: '7% 8%',
             }}
           />
-      </FlexItem>
-      <FlexItem>
+        <br/>
         <Title headingLevel='h1'>{providerInfo.title}</Title>
-      </FlexItem>
-      <FlexItem>
+        <br/>
         <p>{providerInfo.description}</p>
       </FlexItem>
       <FlexItem key={`provider_card_${providerInfo.name}`}>

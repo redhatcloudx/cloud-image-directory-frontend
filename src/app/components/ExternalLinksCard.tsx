@@ -108,11 +108,9 @@ const ExternalLinksCard: React.FunctionComponent = () => {
             // margin: '7% 8%',
           }}
         />
-      </FlexItem>
-      <FlexItem>
+        <br/>
         <Title headingLevel='h1'>Get the latest Red Hat Enterprise Linux certified image for cloud deployment</Title>
-      </FlexItem>
-      <FlexItem>
+        <br/>
         <p>Launch the latest RHEL certified cloud image through available cloud service provider marketplaces.</p>
       </FlexItem>
       <Flex>
