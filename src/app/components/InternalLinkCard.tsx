@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Bullseye, Button, Card, CardBody, CardFooter, CardHeader, CardTitle,
-  Flex, FlexItem
+  Flex, FlexItem, Title
 } from '@patternfly/react-core'
 
 import ProviderCard from "@app/components/ProviderCard";
@@ -46,9 +46,8 @@ const InternalLinksCard: React.FunctionComponent = () => {
     //         </CardFooter>
     //       </Card>
     // </Flex>
-    <Flex flex={{ default: 'flex_1' }} >
-      <Card>
-        <CardHeader>
+    <Flex direction={ {default: 'column'}} flex={{ default: 'flex_1' }} justifyContent={ {default: 'justifyContentSpaceBetween'}}>
+      <FlexItem>
           <img
             src={redhat_logo}
             style={{
@@ -58,25 +57,22 @@ const InternalLinksCard: React.FunctionComponent = () => {
               // margin: '7% 8%',
             }}
           />
-        </CardHeader>
-        <CardTitle>{providerInfo.title}</CardTitle>
-        <Bullseye>
-          <CardBody>
-            {providerInfo.description}
-            <Flex alignItems={{ default: 'alignItemsStretch' }}>
-              <FlexItem key={`provider_card_${providerInfo.name}`}>
-                    <Card>
-                      <CardBody style={{height: '26%', width: '13%'}}></CardBody>
-                      <CardFooter>
-                        <Button component="a" href={providerInfo.url} target="_blank" rel="noreferrer" variant="link">{providerInfo.text}</Button>
-                      </CardFooter>
-                    </Card>
-                  </FlexItem>
-            </Flex>
-          </CardBody>
-        </Bullseye>
-      </Card>
+      </FlexItem>
+      <FlexItem>
+        <Title headingLevel='h1'>{providerInfo.title}</Title>
+      </FlexItem>
+      <FlexItem>
+        <p>{providerInfo.description}</p>
+      </FlexItem>
+      <FlexItem key={`provider_card_${providerInfo.name}`}>
+        {/* img */}
+        &nbsp;
+      </FlexItem>
+      <FlexItem>
+        <Button component="a" href={providerInfo.url} target="_blank" rel="noreferrer" variant="link">{providerInfo.text}</Button>
+       </FlexItem>
     </Flex>
+
   )
 }
 
