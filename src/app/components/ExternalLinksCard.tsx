@@ -61,7 +61,7 @@ const loadImage = (name) => {
 
 const ExternalLinksCard: React.FunctionComponent = () => {
   return (
-    <Flex direction={ {default: 'column'}}  flex={{ default: 'flex_3' }} justifyContent={{ default: 'justifyContentSpaceBetween' }}>
+    <Flex direction={ {default: 'column'}}  flex={{ default: 'flex_3' }} justifyContent={{ default: 'justifyContentSpaceBetween' }}  style={{border: '1px solid #D2D2D2', padding: '2%'}}>
       {/*<Card>*/}
       {/*  <CardHeader>*/}
       {/*    <img*/}

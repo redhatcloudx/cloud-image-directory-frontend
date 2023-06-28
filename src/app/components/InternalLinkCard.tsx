@@ -46,7 +46,7 @@ const InternalLinksCard: React.FunctionComponent = () => {
     //         </CardFooter>
     //       </Card>
     // </Flex>
-    <Flex direction={ {default: 'column'}} flex={{ default: 'flex_1' }} justifyContent={ {default: 'justifyContentSpaceBetween'}} alignSelf={ {default: "alignSelfStretch"}}>
+    <Flex direction={ {default: 'column'}} flex={{ default: 'flex_1' }} justifyContent={ {default: 'justifyContentSpaceBetween'}} alignSelf={ {default: "alignSelfStretch"}} style={{border: '1px solid #D2D2D2', padding: '2%'}}>
       <FlexItem>
           <img
             src={redhat_logo}
