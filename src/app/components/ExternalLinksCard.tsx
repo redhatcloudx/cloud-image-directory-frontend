@@ -115,10 +115,10 @@ const ExternalLinksCard: React.FunctionComponent = () => {
       </FlexItem>
       <Flex>
       {
-        providerInfos.map(({name, text, url}, _) => (
+        providerInfos.map(({name, text, url}, index) => (
 
           <>
-            <FlexItem key={`provider_card_${name}`}>
+            <FlexItem key={`provider_card_${name}`} style={{ borderRight: index != providerInfos.length - 1 ? '1px solid #979797': 'null'}}>
               <img style={{ height: 200, width: 200}} src={loadImage(name)} />
               <Bullseye>
                 <Button component="a" href={url} target="_blank" rel="noreferrer" variant="link">
