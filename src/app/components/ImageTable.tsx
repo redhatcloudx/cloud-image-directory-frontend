@@ -5,6 +5,7 @@ import {
   Toolbar,
   ToolbarContent,
   ToolbarItem,
+  ToolbarFilter,
   Pagination,
   Drawer,
   DrawerContent,
@@ -14,6 +15,7 @@ import {
 import { Table, Thead, Tr, Th, ThProps, Tbody, Td } from '@patternfly/react-table';
 import { fetch } from 'cross-fetch'
 import { DetailsDrawer } from './DetailsDrawer';
+import { ImageTableFilter } from './ImageTableFilter';
 interface ImageData {
   name: string;
   version: string;
@@ -24,7 +26,8 @@ interface ImageData {
   date: string;
   selflink: URL;
   virt: string;
-};
+}
+
 
 export const ImageTable: React.FunctionComponent = () => {
   const [search, setSearch] = React.useState('');
@@ -35,7 +38,129 @@ export const ImageTable: React.FunctionComponent = () => {
   const [perPage, setPerPage] = React.useState(20);
   const [isDrawerExpanded, setIsExpanded] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState({});
+
+  const [providerSelections, setProviderSelections] = React.useState<string[]>([]);
+  const [regionSelections, setRegionSelections] = React.useState<string[]>([]);
+  const [architectureSelections, setArchitectureSelections] = React.useState<string[]>([]);
+  const [filterConfig, setFilterConfig] = React.useState<object[]>([]);
+
   const drawerRef = React.useRef<HTMLDivElement>();
+
+  const onFilter = (image: ImageData) => {
+    const matchesProviderValue = providerSelections.includes(image.provider.toLowerCase());
+    const matchesRegionValue = regionSelections.includes(image.region.toLowerCase());
+    const matchesArchitectureValue = architectureSelections.includes(image.arch.toLowerCase());
+
+    return (
+      (providerSelections.length === 0 || matchesProviderValue)
+      && (regionSelections.length === 0 || matchesRegionValue)
+      && (architectureSelections.length === 0 || matchesArchitectureValue)
+    );
+  };
+
+  const onFilterSelect = (_: React.MouseEvent | undefined, itemId: string | number | undefined) => {
+    if (!itemId || typeof itemId !== 'string') {
+      return;
+    }
+
+    const itemIdElements = itemId.split('/');
+    const category = itemIdElements[0];
+    const item = itemIdElements[1];
+    let selections: string[] = [];
+
+    switch (category) {
+      case 'provider':
+        selections = providerSelections.includes(item)
+          ? providerSelections.filter((fil: string) => fil !== item)
+          : [item, ...providerSelections]
+        setProviderSelections(selections);
+        break;
+      case 'region':
+        selections = regionSelections.includes(item)
+          ? regionSelections.filter((fil: string) => fil !== item)
+          : [item, ...regionSelections]
+        setRegionSelections(selections);
+        break;
+      case 'architecture':
+        selections = architectureSelections.includes(item)
+          ? architectureSelections.filter((fil: string) => fil !== item)
+          : [item, ...architectureSelections]
+        setArchitectureSelections(selections);
+        break;
+      default:
+        break;
+    }
+    setPage(1);
+  };
+
+  const onFilterDelete = (type: string, id: string) => {
+    switch (type) {
+      case 'provider':
+        if (id === 'all') {
+          setProviderSelections([]);
+        } else {
+          setProviderSelections(providerSelections.filter((fil: string) => fil !== id));
+        }
+        break;
+      case 'region':
+        if (id === 'all') {
+          setRegionSelections([]);
+        } else {
+          setRegionSelections(regionSelections.filter((fil: string) => fil !== id));
+        }
+        break;
+      case 'architecture':
+        if (id === 'all') {
+          setArchitectureSelections([]);
+        } else {
+          setArchitectureSelections(architectureSelections.filter((fil: string) => fil !== id));
+        }
+        break;
+      default:
+        setProviderSelections([]);
+        setRegionSelections([]);
+        setArchitectureSelections([]);
+        break;
+    }
+    setPage(1);
+  };
+
+  const isFilterSelected = (category: string, itemId: string): boolean => {
+    let filterSelected = false;
+    switch (category) {
+      case 'provider':
+        filterSelected = providerSelections.includes(itemId);
+        break;
+      case 'region':
+        filterSelected = regionSelections.includes(itemId);
+        break;
+      case 'architecture':
+        filterSelected = architectureSelections.includes(itemId);
+        break;
+      default:
+        break;
+    }
+    return filterSelected;
+  };
+
+  const getSelectedFiltersByCategory = (category: string): string[] => {
+    let filters = [] as string[];
+    switch (category) {
+      case 'provider':
+        filters = providerSelections;
+        break;
+      case 'region':
+        filters = regionSelections;
+        break;
+      case 'architecture':
+        filters = architectureSelections;
+        break;
+      default:
+        break;
+    }
+    return filters;
+  };
+
 
   const onDrawerExpand = () => {
     drawerRef.current && drawerRef.current.focus();
@@ -43,7 +168,7 @@ export const ImageTable: React.FunctionComponent = () => {
 
   const onDrawerOpenClick = (details: object) => {
     setIsExpanded(true);
-    setSelectedImage(details)
+    setSelectedImage(details);
   };
 
   const onDrawerCloseClick = () => {
@@ -56,10 +181,10 @@ export const ImageTable: React.FunctionComponent = () => {
     region: 'Region',
     arch: 'Architecture',
     date: 'Release Date'
-  }
+  };
 
   useEffect(() => {
-    loadImageData()
+    loadImageData();
   }, [])
 
   const loadImageData = () => {
@@ -67,10 +192,24 @@ export const ImageTable: React.FunctionComponent = () => {
       method: 'get',
     })
       .then(res => res.json())
-      .then(data => {
-        setImageData(data)
+      .then((data) => {
+        setImageData(data);
+        setFilterConfig([
+          {
+            category: 'provider',
+            data: [...new Set(data.map(item => item['provider']))]
+          },
+          {
+            category: 'region',
+            data: [...new Set(data.map(item => item['region']))]
+          },
+          {
+            category: 'architecture',
+            data: [...new Set(data.map(item => item['arch'].toLowerCase()))]
+          }
+        ]);
       })
-  }
+  };
 
   const handleSearch = (event) => {
     setIsExpanded(false);
@@ -109,11 +248,12 @@ export const ImageTable: React.FunctionComponent = () => {
     setPage(newPage);
   };
 
-  const searchedImageData = imageData.filter((item: ImageData) =>
+  const filteredImageData = imageData.filter(onFilter);
+  const searchedImageData = filteredImageData.filter((item: ImageData) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const paginatedImageData = searchedImageData.slice((page - 1) * perPage, page * perPage)
+  const paginatedImageData = searchedImageData.slice((page - 1) * perPage, page * perPage);
 
   let sortedImageData = paginatedImageData;
   if (activeSortIndex !== undefined) {
@@ -147,7 +287,9 @@ export const ImageTable: React.FunctionComponent = () => {
   return (
     <React.Fragment>
       <Title headingLevel='h1'>Browse Images</Title>
-      <Toolbar id="toolbar-top">
+      <Toolbar
+        id="toolbar-top"
+        clearAllFilters={() => onFilterDelete('', '')}>
         <ToolbarContent>
           <ToolbarItem variant="search-filter">
             <SearchInput
@@ -156,6 +298,29 @@ export const ImageTable: React.FunctionComponent = () => {
               placeholder='Search by name'
             />
           </ToolbarItem>
+          {filterConfig.map((filter: object) => {
+            const category = filter['category'];
+            const data = filter['data'];
+            return (
+              <ToolbarItem key={category}>
+                <ToolbarFilter
+                  chips={getSelectedFiltersByCategory(category)}
+                  deleteChip={(category, chip) => onFilterDelete(category as string, chip as string)}
+                  deleteChipGroup={() => onFilterDelete(category, 'all')}
+                  categoryName={category}
+                >
+                  <ImageTableFilter
+                    onFilterSelect={onFilterSelect}
+                    category={category}
+                    filters={data}
+                    isFilterSelected={isFilterSelected}
+                    totalFilterCount={getSelectedFiltersByCategory(category).length} />
+                </ToolbarFilter>
+              </ToolbarItem>
+            )
+          }
+          )}
+
           <ToolbarItem alignment={{
             default: 'alignRight'
           }}>
