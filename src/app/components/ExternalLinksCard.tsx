@@ -19,24 +19,6 @@ import azure_logo from '@app/bgimages/azure_clear.png';
 import google_logo from '@app/bgimages/google_clear.png';
 import { ArrowRightIcon } from '@patternfly/react-icons';
 
-const providerInfos = [
-  {
-    name: 'aws',
-    text: 'Launch in AWS ->',
-    url: 'https://aws.amazon.com/marketplace/pp/prodview-kv5mi3ksb2mma?sr=0-1&ref_=beagle&applicationId=AWSMPContessa',
-  },
-  {
-    name: 'google',
-    text: 'Launch in Google Cloud ->',
-    url: 'https://console.cloud.google.com/marketplace/product/rhel-cloud/rhel-9?project=cockpituous',
-  },
-  {
-    name: 'azure',
-    text: 'Launch in Azure ->',
-    url: 'https://azuremarketplace.microsoft.com/en-us/marketplace/apps/redhat.rhel-20190605?tab=Overview',
-  },
-];
-
 const loadImage = (name: Provider) => {
   switch (name) {
     case Provider.aws:
@@ -59,6 +41,16 @@ const displayText = (name: Provider) => {
   }
 };
 
+const getURL = (name: Provider) => {
+  switch (name) {
+    case Provider.aws:
+      return 'https://aws.amazon.com/marketplace/pp/prodview-kv5mi3ksb2mma?sr=0-1&ref_=beagle&applicationId=AWSMPContessa';
+    case Provider.azure:
+      return 'https://console.cloud.google.com/marketplace/product/rhel-cloud/rhel-9?project=cockpituous';
+    case Provider.google:
+      return 'https://azuremarketplace.microsoft.com/en-us/marketplace/apps/redhat.rhel-20190605?tab=Overview';
+  }
+};
 enum Provider {
   'aws',
   'azure',
@@ -74,12 +66,12 @@ const ProviderCard = ({ provider }: ProviderCardProps) => {
     <Stack>
       <StackItem>
         <Bullseye>
-          <img style={{ height: 100, width: 100 }} src={loadImage(provider)} />
+          <img style={{ height: 100, width: 100 }} src={loadImage(provider)} alt="External provider" />
         </Bullseye>
       </StackItem>
       <StackItem>
         <Bullseye>
-          <Button variant="link" isLarge>
+          <Button component="a" href={getURL(provider)} target="_blank" variant="link" isLarge>
             {displayText(provider)} <ArrowRightIcon />
           </Button>
         </Bullseye>

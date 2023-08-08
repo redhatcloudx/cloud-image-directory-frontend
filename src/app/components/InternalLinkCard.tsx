@@ -4,8 +4,7 @@ import { Button, Card, CardBody, CardFooter, CardTitle, Stack, StackItem } from 
 import redhat_logo from '@app/bgimages/redhat_clear.png';
 import { ArrowRightIcon } from '@patternfly/react-icons';
 
-const providerInfo = {
-  name: 'redhat',
+const redhatProviderInfo = {
   title: 'Build your own RHEL cloud image',
   description:
     "With Red Hat's image builder, you can create customizable and repeatable operating system images and server images",
@@ -27,16 +26,13 @@ const InternalLinksCard: React.FunctionComponent = () => {
             />
           </StackItem>
           <StackItem>
-            <p>Build your own RHEL cloud image</p>
+            <p>{redhatProviderInfo.title}</p>
           </StackItem>
         </Stack>
       </CardTitle>
-      <CardBody>
-        With Red Hat's Image Builder, you can create customizable and repeatable operating system images and server
-        images.
-      </CardBody>
+      <CardBody>{redhatProviderInfo.description}</CardBody>
       <CardFooter>
-        <Button variant="link" isLarge>
+        <Button component="a" href={redhatProviderInfo.url} target="_blank" variant="link" isLarge>
           Build an image <ArrowRightIcon />
         </Button>
       </CardFooter>
