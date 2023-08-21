@@ -15,10 +15,5 @@ if (process.env.NODE_ENV !== 'production') {
   const axe = require('react-axe')
   axe(React, ReactDOM, 1000, config)
 }
-const rootElement = document.getElementById("root") as HTMLElement;
 
-if (rootElement.hasChildNodes()) {
-  ReactDOM.hydrate(<App />, rootElement);
-} else {
-  ReactDOM.render(<App />, rootElement);
-}
+ReactDOM.render(<App />, document.getElementById('root') as HTMLElement)
