@@ -10,8 +10,13 @@ import {
   Drawer,
   DrawerContent,
   DrawerContentBody,
-  Button
+  Button,
+  EmptyState,
+  EmptyStateIcon,
+  EmptyStatePrimary,
+  EmptyStateBody,
 } from '@patternfly/react-core';
+import { SearchIcon } from '@patternfly/react-icons';
 import { Table, Thead, Tr, Th, ThProps, Tbody, Td } from '@patternfly/react-table';
 import { fetch } from 'cross-fetch'
 import { DetailsDrawer } from './DetailsDrawer';
@@ -38,7 +43,6 @@ export const ImageTable: React.FunctionComponent = () => {
   const [perPage, setPerPage] = React.useState(20);
   const [isDrawerExpanded, setIsExpanded] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState({});
-
   const [providerSelections, setProviderSelections] = React.useState<string[]>([]);
   const [regionSelections, setRegionSelections] = React.useState<string[]>([]);
   const [architectureSelections, setArchitectureSelections] = React.useState<string[]>([]);
@@ -197,23 +201,23 @@ export const ImageTable: React.FunctionComponent = () => {
         setFilterConfig([
           {
             category: 'provider',
-            data: [...new Set(data.map(item => item['provider']))]
+            data: [...new Set(data.map((item: string) => item['provider']))]
           },
           {
             category: 'region',
-            data: [...new Set(data.map(item => item['region']))]
+            data: [...new Set(data.map((item: string) => item['region']))]
           },
           {
             category: 'architecture',
-            data: [...new Set(data.map(item => item['arch'].toLowerCase()))]
+            data: [...new Set(data.map((item: string) => item['arch'].toLowerCase()))]
           }
         ]);
       })
   };
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
     setIsExpanded(false);
-    setSearch(event.target.value);
+    setSearch(event.currentTarget.value);
     setPage(1);
   };
 
@@ -284,6 +288,30 @@ export const ImageTable: React.FunctionComponent = () => {
       details={selectedImage} />
   );
 
+  const emptyState = (
+    <EmptyState>
+      <EmptyStateIcon icon={SearchIcon} />
+      <Title size="lg" headingLevel="h4">
+        No results found
+      </Title>
+      <EmptyStateBody>No results match the filter criteria. Clear all filters and try again.</EmptyStateBody>
+      <EmptyStatePrimary>
+        <Button
+          variant="link"
+          onClick={() => {
+            setIsExpanded(false);
+            setSearch('');
+            setPage(1);
+            onFilterDelete('', '');
+          }}
+        >
+          Clear all filters
+        </Button>
+      </EmptyStatePrimary>
+    </EmptyState>
+  );
+  //add searchinput that clears once the setSearch is called
+
   return (
     <React.Fragment>
       <Title headingLevel='h1'>Browse Images</Title>
@@ -294,6 +322,7 @@ export const ImageTable: React.FunctionComponent = () => {
           <ToolbarItem variant="search-filter">
             <SearchInput
               onChange={handleSearch}
+              value={search}
               id='search'
               placeholder='Search by name'
             />
@@ -356,24 +385,32 @@ export const ImageTable: React.FunctionComponent = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {sortedImageData.map((image: ImageData) => (
-                  <Tr key={image.name}>
-                    <Td dataLabel={columnNames.name}>{image.name}</Td>
-                    <Td dataLabel={columnNames.provider}>{image.provider}</Td>
-                    <Td dataLabel={columnNames.region}>{image.region}</Td>
-                    <Td dataLabel={columnNames.arch}>{image.arch}</Td>
-                    <Td dataLabel={columnNames.date}><p>{new Date(image.date).toDateString()}</p></Td>
-                    <Td>
-                      <Button
-                        aria-expanded={isDrawerExpanded}
-                        onClick={e => onDrawerOpenClick(image)}
-                        variant='link'
-                        isInline>
-                        Launch now
-                      </Button>
+                {sortedImageData.length > 0 &&
+                  sortedImageData.map((image: ImageData) => (
+                    <Tr key={image.name}>
+                      <Td dataLabel={columnNames.name}>{image.name}</Td>
+                      <Td dataLabel={columnNames.provider}>{image.provider}</Td>
+                      <Td dataLabel={columnNames.region}>{image.region}</Td>
+                      <Td dataLabel={columnNames.arch}>{image.arch}</Td>
+                      <Td dataLabel={columnNames.date}><p>{new Date(image.date).toDateString()}</p></Td>
+                      <Td>
+                        <Button
+                          aria-expanded={isDrawerExpanded}
+                          onClick={e => onDrawerOpenClick(image)}
+                          variant='link'
+                          isInline>
+                          Launch now
+                        </Button>
+                      </Td>
+                    </Tr>
+                  ))}
+                {sortedImageData.length === 0 && (
+                  <Tr>
+                    <Td colSpan={8}>
+                      {emptyState}
                     </Td>
                   </Tr>
-                ))}
+                )}
               </Tbody>
             </Table>
           </DrawerContentBody>
