@@ -14,9 +14,9 @@ import {
 } from '@patternfly/react-core';
 
 import redhat_logo from '@app/bgimages/redhat_clear.png';
-import aws_logo from '@app/bgimages/aws_clear.png';
-import azure_logo from '@app/bgimages/azure_clear.png';
-import google_logo from '@app/bgimages/google_clear.png';
+import aws_logo from '@app/bgimages/aws.png';
+import azure_logo from '@app/bgimages/azure.png';
+import google_logo from '@app/bgimages/google.png';
 import { ArrowRightIcon } from '@patternfly/react-icons';
 
 const loadImage = (name: Provider) => {
