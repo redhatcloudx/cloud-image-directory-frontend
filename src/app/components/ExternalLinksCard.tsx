@@ -46,9 +46,9 @@ const getURL = (name: Provider) => {
     case Provider.aws:
       return 'https://aws.amazon.com/marketplace/pp/prodview-kv5mi3ksb2mma?sr=0-1&ref_=beagle&applicationId=AWSMPContessa';
     case Provider.azure:
-      return 'https://console.cloud.google.com/marketplace/product/rhel-cloud/rhel-9?project=cockpituous';
-    case Provider.google:
       return 'https://azuremarketplace.microsoft.com/en-us/marketplace/apps/redhat.rhel-20190605?tab=Overview';
+    case Provider.google:
+      return 'https://console.cloud.google.com/marketplace/product/rhel-cloud/rhel-9?project=cockpituous';
   }
 };
 enum Provider {
