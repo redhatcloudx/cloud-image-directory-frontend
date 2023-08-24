@@ -95,7 +95,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
           href='https://imagedirectory.cloud'
           alt='Cloud Image Directory'
           className='header-section'>
-          <Title headingLevel='h1' size='lg' className='header-text'>
+          <Title headingLevel='h1' className="header-title">
             Cloud Image Directory
           </Title>
         </MastheadBrand>

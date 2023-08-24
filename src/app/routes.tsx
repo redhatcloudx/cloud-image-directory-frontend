@@ -47,7 +47,7 @@ const routes: AppRouteConfig[] = [
     component: <Home title='Cloud Image Directory | Contact Us' />,
     exact: true,
     label: 'Contact Us',
-    path: '/contact',
+    path: 'mailto: contact@imagedirectory.cloud',
   },
   {
     component: <ImageDetails title='Cloud Image Directory | Image Details' />,

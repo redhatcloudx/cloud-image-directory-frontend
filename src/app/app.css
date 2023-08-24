@@ -2,6 +2,11 @@ html, body, #root {
   height: 100%;
 }
 
+.header-title {
+  size: lg;
+  color: white;
+}
+
 .hero-section {
   background-color: black;
 }
