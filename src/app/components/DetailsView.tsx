@@ -93,7 +93,7 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
 
   const hash = crypto.createHash('sha1')
   hash.update(details['name'].replace(/ /g, '_').toLowerCase());
-  const shareURL = `https://staging.imagedirectory.cloud/images/rhel/${details['provider']}/${details['version']}/${details['region']}/${hash.digest('hex')}`;
+  const shareURL = `https://staging.imagedirectory.cloud/browser/rhel/${details['provider']}/${details['version']}/${details['region']}/${hash.digest('hex')}`;
 
   // Conditionally configure the content of the image details view
   switch (details['provider']) {
