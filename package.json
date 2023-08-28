@@ -4,13 +4,15 @@
     "@patternfly/react-icons": "^4.32.1",
     "@patternfly/react-table": "^4.93.1",
     "cross-fetch": "^3.1.6",
+    "crypto-browserify": "^3.12.0",
     "fuzzysort": "^2.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-router-dom-last-location": "^0.2.0",
     "regenerator-runtime": "^0.13.11",
-    "sirv-cli": "^2.0.0"
+    "sirv-cli": "^2.0.0",
+    "stream-browserify": "^3.0.0"
   },
   "description": "A web portal for locating RHEL cloud images for public cloud providers.",
   "devDependencies": {

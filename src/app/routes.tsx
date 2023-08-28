@@ -52,8 +52,8 @@ const routes: AppRouteConfig[] = [
   {
     component: <ImageDetails title='Cloud Image Directory | Image Details' />,
     exact: true,
-    label: 'Search',
-    path: '/browser/:provider/:region/:imageName',
+    label: 'Image Details',
+    path: '/images/:os/:provider/:version/:region/:uniqueImageId',
   },
 ]
 

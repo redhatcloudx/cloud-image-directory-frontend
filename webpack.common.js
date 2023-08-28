@@ -126,7 +126,11 @@ module.exports = env => {
         })
       ],
       symlinks: false,
-      cacheWithContext: false
+      cacheWithContext: false,
+      fallback: {
+        "crypto": require.resolve("crypto-browserify"),
+        "stream": require.resolve("stream-browserify")
+      }
     }
   }
 };

@@ -17,11 +17,28 @@ import {
   Stack,
   StackItem
 } from '@patternfly/react-core';
-import { PlayIcon } from '@patternfly/react-icons';
+import {
+  PlayIcon,
+  CopyIcon,
+  MastodonIcon,
+  TwitterIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  ShareIcon
+} from '@patternfly/react-icons';
+import crypto from 'crypto'
 
 export const DetailsView: React.FunctionComponent<{ details: object }> = ({ details }) => {
   const [activeTabKey, setActiveTabKey] = React.useState<string | number>(0);
   const [copied, setCopied] = React.useState<boolean>(false);
+
+  const shareOnMastodon = (version: string, provider: string, imageURL: string) => {
+    const domain = prompt("Enter your Mastodon domain", "mastodon.social");
+    if (domain == "" || domain == null) {
+      return;
+    }
+    window.open(`https://${domain}/?text=Run%20RHEL%20${version}%20on%20${provider}&url=${imageURL}`, '_blank');
+  }
 
   const handleTabClick = (
     event: React.MouseEvent<any> | React.KeyboardEvent | MouseEvent,
@@ -29,6 +46,7 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
   ) => {
     setActiveTabKey(tabIndex);
   };
+
 
 
   const copyButton = (data: string) => {
@@ -72,6 +90,11 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
       Data: details['arch'],
     },
   ];
+
+  const hash = crypto.createHash('sha1')
+  hash.update(details['name'].replace(/ /g, '_').toLowerCase());
+  const shareURL = `https://imagedirectory.cloud/images/rhel/${details['provider']}/${details['version']}/${details['region']}/${hash.digest('hex')}`;
+
   // Conditionally configure the content of the image details view
   switch (details['provider']) {
     case 'aws':
@@ -168,6 +191,7 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
                 })}
               </DescriptionList>
             </StackItem>
+
             <StackItem>
               {details['provider'] != 'azure' && (
                 <Button component="a" href={details['selflink']} target="_blank" rel="noreferrer" style={{
@@ -176,6 +200,44 @@ export const DetailsView: React.FunctionComponent<{ details: object }> = ({ deta
                   Launch now
                 </Button>
               )}
+            </StackItem>
+
+            <StackItem>
+              <Title headingLevel='h3'>
+                {'Share this image'}
+              </Title>
+              <Button variant="plain"
+                onClick={() => {
+                  navigator.clipboard.writeText(shareURL);
+                }}>
+                Copy URL
+              </Button>
+              <a onClick={() => { shareOnMastodon(details['version'], details['provider'], window.location.href) }}>
+                <Button variant="link" isInline>
+                  <MastodonIcon size="md" />
+                </Button>
+              </a>
+              <a href={`https://twitter.com/intent/tweet?text=Run%20RHEL%20${details['version']}%20on%20${details['provider']}&url=${shareURL}`}
+                target="_blank"
+                rel="noreferrer">
+                <Button variant="link" isInline>
+                  <TwitterIcon size="md" />
+                </Button>
+              </a>
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareURL}`}
+                target="_blank"
+                rel="noreferrer">
+                <Button variant="link" isInline>
+                  <FacebookIcon size="md" />
+                </Button>
+              </a>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareURL}`}
+                target="_blank"
+                rel="noreferrer">
+                <Button variant="link" isInline>
+                  <LinkedinIcon size="md" />
+                </Button>
+              </a>
             </StackItem>
           </Stack>
         </Tab>

@@ -12,16 +12,16 @@ import fetch from 'cross-fetch'
 
 const ImageDetails: React.FunctionComponent<{ title: string }> = ({ title }) => {
   const [details, setDetails] = useState({})
-  const { provider, region, imageName } = useParams()
+  const { os, provider, version, region, uniqueImageId } = useParams()
   useDocumentTitle(title)
 
   useEffect(() => {
-    fetch(`https://imagedirectory.cloud/images/v1/${provider}/${region}/${imageName}`, {
+    fetch(`https://imagedirectory.cloud/images/v2/os/${os}/provider/${provider}/version/${version}/region/${region}/image/${uniqueImageId}`, {
       method: 'get',
     })
       .then(res => res.json())
       .then(details => setDetails(details))
-  }, [provider, region, imageName])
+  }, [os, provider, version, region, uniqueImageId])
 
   return (
     <div>
