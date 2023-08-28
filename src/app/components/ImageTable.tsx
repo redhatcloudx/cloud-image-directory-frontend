@@ -192,7 +192,7 @@ export const ImageTable: React.FunctionComponent = () => {
   }, [])
 
   const loadImageData = () => {
-    fetch('https://imagedirectory.cloud/images/v2/all', {
+    fetch('https://staging.imagedirectory.cloud/images/v2/all', {
       method: 'get',
     })
       .then(res => res.json())

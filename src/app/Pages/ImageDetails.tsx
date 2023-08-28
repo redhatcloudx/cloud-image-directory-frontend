@@ -16,7 +16,7 @@ const ImageDetails: React.FunctionComponent<{ title: string }> = ({ title }) => 
   useDocumentTitle(title)
 
   useEffect(() => {
-    fetch(`https://imagedirectory.cloud/images/v2/os/${os}/provider/${provider}/version/${version}/region/${region}/image/${uniqueImageId}`, {
+    fetch(`https://staging.imagedirectory.cloud/images/v2/os/${os}/provider/${provider}/version/${version}/region/${region}/image/${uniqueImageId}`, {
       method: 'get',
     })
       .then(res => res.json())
